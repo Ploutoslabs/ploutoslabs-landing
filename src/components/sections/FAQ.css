@@ -1,0 +1,110 @@
+.faq {
+  padding: 100px 0;
+  border-top: 1px solid var(--kavi-card-border);
+}
+
+.faq__list {
+  max-width: 760px;
+  margin: 0 auto 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+
+.faq__list--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.faq-item {
+  background: var(--kavi-card);
+  border: 1px solid var(--kavi-card-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+
+.faq-item--open {
+  border-color: rgba(0, 209, 108, 0.2);
+}
+
+.faq-item__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--kavi-text);
+  transition: color var(--transition);
+}
+
+.faq-item--open .faq-item__question {
+  color: var(--kavi-green);
+}
+
+.faq-item__chevron {
+  flex-shrink: 0;
+  color: var(--kavi-muted);
+  transition: transform 0.3s ease, color 0.25s ease;
+}
+
+.faq-item--open .faq-item__chevron {
+  transform: rotate(180deg);
+  color: var(--kavi-green);
+}
+
+.faq-item__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item--open .faq-item__answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-item__answer > p {
+  overflow: hidden;
+  font-size: 0.9rem;
+  color: var(--kavi-muted);
+  line-height: 1.7;
+  padding: 0 24px 22px;
+}
+
+/* Support row */
+.faq__support {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+}
+
+.faq__support--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.faq__support > p {
+  font-size: 0.9rem;
+  color: var(--kavi-muted);
+}
+
+@media (max-width: 580px) {
+  .faq__support {
+    flex-direction: column;
+  }
+}

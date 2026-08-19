@@ -1,0 +1,202 @@
+.cp {
+    padding: 110px 0;
+    border-top: 1px solid var(--ploutos-card-border);
+}
+
+/* Grid */
+.cp__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+}
+
+.cp__grid--visible .cp__card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Card */
+.cp__card {
+    position: relative;
+    background: var(--ploutos-card);
+    border: 1px solid var(--ploutos-card-border);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity 0.55s ease var(--delay, 0ms),
+        transform 0.55s ease var(--delay, 0ms),
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    cursor: default;
+}
+
+.cp__card:hover {
+    border-color: color-mix(in srgb, var(--p-color) 30%, transparent);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px);
+}
+
+/* Number badge */
+.cp__card-number {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--p-color);
+    background: color-mix(in srgb, var(--p-color) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--p-color) 20%, transparent);
+    padding: 4px 10px;
+    border-radius: 100px;
+    width: fit-content;
+}
+
+.cp__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cp__icon-wrap {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--p-color) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--p-color) 18%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--p-color);
+    transition: transform 0.25s ease;
+}
+
+.cp__card:hover .cp__icon-wrap {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+.cp__card-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ploutos-text);
+    letter-spacing: -0.02em;
+}
+
+.cp__card-desc {
+    font-size: 0.87rem;
+    color: var(--ploutos-muted);
+    line-height: 1.7;
+}
+
+/* Hover glow line at bottom */
+.cp__card-border-glow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--p-color), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.cp__card:hover .cp__card-border-glow {
+    opacity: 1;
+}
+
+/* Bottom banner */
+.cp__banner {
+    position: relative;
+    background: linear-gradient(135deg, #071a0f, #0a1a10);
+    border: 1px solid rgba(0, 209, 108, 0.18);
+    border-radius: var(--radius-xl);
+    padding: 52px 56px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.cp__banner--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cp__banner-glow {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(0, 209, 108, 0.10), transparent 70%);
+    pointer-events: none;
+}
+
+.cp__banner-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 209, 108, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 209, 108, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black 20%, transparent 70%);
+    pointer-events: none;
+}
+
+.cp__banner-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.cp__banner-icon {
+    font-size: 2.4rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.cp__banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 800;
+    color: var(--ploutos-text);
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+}
+
+.cp__banner-text {
+    font-size: 0.95rem;
+    color: var(--ploutos-muted);
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .cp__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 680px) {
+    .cp__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cp__banner {
+        padding: 36px 28px;
+    }
+
+    .cp__banner-content {
+        flex-direction: column;
+        gap: 16px;
+    }
+}

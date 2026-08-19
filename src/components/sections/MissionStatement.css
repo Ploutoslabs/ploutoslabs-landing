@@ -1,0 +1,402 @@
+.ms {
+    border-top: 1px solid var(--ploutos-card-border);
+}
+
+/* ── Hero strip ─────────────────────────────────────────────── */
+.ms__hero {
+    position: relative;
+    padding: 110px 0 100px;
+    overflow: hidden;
+    background: var(--ploutos-dark);
+}
+
+.ms__hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.ms__hero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(150px);
+}
+
+.ms__hero-glow--1 {
+    width: 600px;
+    height: 500px;
+    background: var(--ploutos-green);
+    opacity: 0.06;
+    top: -150px;
+    left: -100px;
+}
+
+.ms__hero-glow--2 {
+    width: 400px;
+    height: 400px;
+    background: var(--ploutos-blue);
+    opacity: 0.05;
+    bottom: -100px;
+    right: -50px;
+}
+
+.ms__hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 209, 108, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 209, 108, 0.03) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 75%);
+}
+
+.ms__hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.ms__hero-content--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ms__hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: var(--ploutos-text);
+    margin-bottom: 20px;
+}
+
+.ms__hero-accent {
+    background: linear-gradient(135deg, var(--ploutos-green) 0%, #00a855 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ms__hero-sub {
+    font-size: 1.1rem;
+    color: var(--ploutos-muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+}
+
+/* Quote block */
+.ms__quote {
+    position: relative;
+    background: rgba(0, 209, 108, 0.04);
+    border: 1px solid rgba(0, 209, 108, 0.15);
+    border-radius: var(--radius-xl);
+    padding: 40px 48px;
+    max-width: 720px;
+    text-align: left;
+}
+
+.ms__quote-mark {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    line-height: 0.6;
+    color: var(--ploutos-green);
+    opacity: 0.4;
+    margin-bottom: 16px;
+    font-weight: 800;
+}
+
+.ms__quote-text {
+    font-size: 1.05rem;
+    color: var(--ploutos-text);
+    line-height: 1.75;
+    font-style: italic;
+    margin-bottom: 28px;
+    border: none;
+    padding: 0;
+}
+
+.ms__quote-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.ms__quote-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ploutos-green-dim);
+    border: 1px solid var(--ploutos-green-glow);
+    color: var(--ploutos-green);
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ms__quote-name {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ploutos-text);
+}
+
+.ms__quote-role {
+    font-size: 0.75rem;
+    color: var(--ploutos-muted);
+    margin-top: 2px;
+}
+
+/* ── Pillars ────────────────────────────────────────────────── */
+.ms__pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 80px 0 72px;
+    border-bottom: 1px solid var(--ploutos-card-border);
+    margin-bottom: 72px;
+}
+
+.ms__pillars--visible .ms__pillar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ms__pillar {
+    position: relative;
+    background: var(--ploutos-card);
+    border: 1px solid var(--ploutos-card-border);
+    border-radius: var(--radius-xl);
+    padding: 36px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity 0.6s ease var(--delay, 0ms),
+        transform 0.6s ease var(--delay, 0ms),
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.ms__pillar:hover {
+    border-color: color-mix(in srgb, var(--p-color) 30%, transparent);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+.ms__pillar-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ms__pillar-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--p-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--p-color) 20%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--p-color);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.ms__pillar:hover .ms__pillar-icon {
+    transform: scale(1.1) rotate(-4deg);
+}
+
+.ms__pillar-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--p-color);
+    background: color-mix(in srgb, var(--p-color) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--p-color) 18%, transparent);
+    padding: 4px 10px;
+    border-radius: 100px;
+}
+
+.ms__pillar-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--ploutos-text);
+    letter-spacing: -0.02em;
+}
+
+.ms__pillar-text {
+    font-size: 0.9rem;
+    color: var(--ploutos-muted);
+    line-height: 1.72;
+}
+
+/* Accent line at top on hover */
+.ms__pillar-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--p-color), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.ms__pillar:hover .ms__pillar-line {
+    opacity: 1;
+}
+
+/* ── Commitments ────────────────────────────────────────────── */
+.ms__commitments {
+    margin-bottom: 72px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.ms__commitments--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ms__commit-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.ms__commit-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 800;
+    color: var(--ploutos-text);
+    letter-spacing: -0.03em;
+}
+
+.ms__commit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.ms__commit-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--ploutos-card);
+    border: 1px solid var(--ploutos-card-border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+        opacity 0.45s ease var(--delay, 0ms),
+        transform 0.45s ease var(--delay, 0ms),
+        border-color 0.25s ease;
+}
+
+.ms__commitments--visible .ms__commit-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ms__commit-item:hover {
+    border-color: var(--ploutos-green-glow);
+}
+
+.ms__commit-emoji {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.ms__commit-text {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ploutos-text);
+    font-family: var(--font-display);
+}
+
+/* ── Final CTA ──────────────────────────────────────────────── */
+.ms__final-cta {
+    text-align: center;
+    padding-bottom: 100px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+.ms__commitments--visible~.ms__final-cta,
+.ms__final-cta--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ms__final-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--ploutos-text);
+    margin-bottom: 12px;
+}
+
+.ms__final-sub {
+    font-size: 1rem;
+    color: var(--ploutos-muted);
+    margin-bottom: 32px;
+}
+
+.ms__final-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .ms__pillars {
+        grid-template-columns: 1fr;
+    }
+
+    .ms__commit-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ms__quote {
+        padding: 32px 28px;
+    }
+}
+
+@media (max-width: 580px) {
+    .ms__commit-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ms__final-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ms__final-actions .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}

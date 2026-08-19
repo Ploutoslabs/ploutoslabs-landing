@@ -1,0 +1,134 @@
+.nf {
+  position: relative;
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 0 100px;
+  overflow: hidden;
+}
+
+.nf__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.nf__glow {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 620px;
+  height: 620px;
+  max-width: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-dim), transparent 65%);
+  filter: blur(60px);
+}
+
+.nf__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 22px;
+}
+
+.nf__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--gold-light);
+  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 100px;
+  letter-spacing: 0.01em;
+}
+
+.nf__badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold-light);
+}
+
+.nf__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.nf__title-accent {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nf__sub {
+  max-width: 520px;
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.nf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.nf__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 26px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border-default);
+  width: 100%;
+  max-width: 560px;
+}
+
+.nf__links a {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.nf__links a:hover {
+  color: var(--gold-light);
+}
+
+.nf__links-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-ghost);
+}
+
+@media (max-width: 580px) {
+  .nf {
+    padding: 110px 0 80px;
+  }
+
+  .nf__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nf__actions .btn {
+    width: 100%;
+  }
+}

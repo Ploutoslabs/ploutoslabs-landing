@@ -1,0 +1,76 @@
+.back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 999;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-default);
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    opacity: 0;
+    transform: translateY(16px) scale(0.9);
+    pointer-events: none;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.back-to-top--visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.back-to-top:hover {
+    background: var(--gold-dim);
+    border-color: var(--gold-border);
+    color: var(--gold);
+    box-shadow: 0 0 16px rgba(201, 168, 76, 0.2);
+}
+
+.back-to-top:active {
+    transform: scale(0.93);
+}
+
+.back-to-top__ring {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.back-to-top__ring-track {
+    stroke: var(--border-default);
+}
+
+.back-to-top__ring-progress {
+    stroke: var(--gold);
+    transition: stroke-dashoffset 0.1s linear;
+}
+
+.back-to-top__arrow {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease;
+}
+
+.back-to-top:hover .back-to-top__arrow {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 580px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+    }
+}
