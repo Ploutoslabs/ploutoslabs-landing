@@ -35,14 +35,14 @@ const ecosystemProducts = [
     emoji: "🌍",
     emojiBg: "#1e3a5f",
     title: "Global Acceptance",
-    desc: "Spend anywhere. Our Mastercard is accepted in over 210 countries and millions of merchants online and in-store.",
+    desc: "Spend anywhere. KaviPay cards are accepted wherever Visa and Mastercard are — over 200 countries and millions of merchants online and in-store.",
     comingSoon: false,
   },
   {
     emoji: "💳",
     emojiBg: "#713f12",
     title: "Virtual Dollar Card",
-    desc: "Get a Mastercard virtual dollar card instantly. Use it to pay on any website, app, or service that accepts cards worldwide.",
+    desc: "Get a virtual dollar card instantly — issued on Visa or Mastercard. Use it to pay on any website, app, or service that accepts cards worldwide.",
     comingSoon: false,
   },
   {

@@ -161,7 +161,7 @@ export default function Hero() {
             {/* KaviPay card image */}
             <img
               src={TokenCoin}
-              alt="KaviPay Mastercard"
+              alt="Ploutos coin"
               className="kavi-card-img animate-float"
             />
 

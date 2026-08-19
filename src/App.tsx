@@ -21,8 +21,15 @@ import FAQPage from "./pages/FAQPage";
 import OurEcosystem from "./pages/Ecosystem";
 import NotFound from "./pages/NotFound";
 
+import { usePageMeta } from "./hooks/usePageMeta";
+
 //  Return Home Component Sections
 function Home() {
+  usePageMeta(
+    "Ploutos Labs – Web3 Payments & Financial Infrastructure",
+    "Ploutos Labs is building the future of Web3 payments with KaviPay, digital assets, and financial infrastructure for global users.",
+    "/",
+  );
   return (
     <>
       <Hero />

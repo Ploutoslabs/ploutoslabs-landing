@@ -7,7 +7,7 @@ const features = [
   {
     icon: CreditCard,
     title: 'Virtual Dollar Card',
-    description: 'Get a Mastercard virtual dollar card instantly. Use it to pay on any website, app, or service that accepts cards worldwide.',
+    description: 'Get a virtual dollar card instantly — issued on Visa or Mastercard. Use it to pay on any website, app, or service that accepts cards worldwide.',
     color: '#00D16C',
     tag: 'Instant issuance',
   },
@@ -28,7 +28,7 @@ const features = [
   {
     icon: Globe,
     title: 'Global Acceptance',
-    description: 'Spend anywhere Mastercard is accepted — over 210 countries and millions of merchants online and in-store.',
+    description: 'Spend anywhere Visa and Mastercard are accepted — over 200 countries and millions of merchants online and in-store.',
     color: '#8B5CF6',
     tag: '210+ countries',
   },

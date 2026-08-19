@@ -6,7 +6,7 @@ import "./Flagship.css";
 const physicalFeatures = [
   "ATM cash withdrawals",
   "In-store chip & PIN",
-  "Global Visa network",
+  "Verve & AfriGo networks (Naira)",
   "Instant crypto funding",
 ];
 
@@ -28,7 +28,7 @@ const leftFeatures = [
   {
     emoji: "🌍",
     title: "Global Acceptance",
-    desc: "Use anywhere Visa is accepted — online stores, restaurants, ATMs worldwide.",
+    desc: "Use anywhere Visa or Mastercard is accepted — online stores, restaurants, ATMs worldwide.",
   },
   {
     emoji: "⚡",
@@ -69,7 +69,7 @@ const howItWorksSteps = [
   {
     number: "04",
     title: "Spend Freely",
-    desc: "Use your card online, in stores, at ATMs, or for bill payments — anywhere Visa is accepted.",
+    desc: "Use your card online, in stores, at ATMs, or for bill payments — anywhere major cards are accepted.",
     color: "cyan",
   },
 ];
@@ -162,7 +162,7 @@ export default function Flagship() {
 
             {/* Description */}
             <p className="flagship__desc">
-              KaviPay is your crypto-powered Visa card — virtual and physical —
+              KaviPay is your crypto-powered card — virtual and physical —
               built for Africans and global users who want to spend digital
               assets in the real world. Top up with crypto or Naira, pay bills,
               shop online, and withdraw globally.
@@ -376,11 +376,12 @@ export default function Flagship() {
 
             <div className="flagship__where-note">
               <span className="flagship__where-note-label">
-                Visa network coverage:
+                Card network coverage:
               </span>{" "}
-              KaviPay is accepted wherever Visa is accepted — over 200 countries
-              and territories worldwide. Card availability and features may vary
-              by region.
+              KaviPay virtual cards run on Visa and Mastercard — accepted in
+              over 200 countries and territories worldwide. Physical Naira
+              cards run on the Verve and AfriGo networks. Card availability and
+              features may vary by region.
             </div>
           </div>
         </div>
