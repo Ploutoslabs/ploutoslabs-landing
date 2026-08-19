@@ -8,14 +8,4 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
-  server: {
-    // Live crypto rates come from the Express server (npm run server).
-    // Proxying keeps the frontend calling a same-origin /api path in dev and prod.
-    proxy: {
-      '/api': {
-        target: process.env.API_PROXY_TARGET || 'http://localhost:5001',
-        changeOrigin: true,
-      },
-    },
-  },
 })

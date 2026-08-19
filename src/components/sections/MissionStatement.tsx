@@ -162,7 +162,11 @@ export default function MissionStatement() {
             Join the Africans choosing to move their money freely.
           </p>
           <div className="ms__final-actions">
-            <a href="https://www.kavipay.io/" target="_blank" rel="noopener noreferrer" className="btn btn--primary btn--lg">
+            <a
+              href="https://app.kavipay.io/auth/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--primary btn--lg">
               Create Free Account
             </a>
             <a href="#about" className="btn btn--ghost btn--lg">

@@ -102,7 +102,7 @@ h3 {
 
 .hero__title {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-size: clamp(2.2rem, 3.9vw, 3.3rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -442,7 +442,7 @@ h3 {
 
   /* ── Heading ── */
   .hero__title {
-    font-size: clamp(1.9rem, 9vw, 2.4rem);
+    font-size: clamp(1.5rem, 7vw, 1.9rem);
     letter-spacing: -0.02em;
     line-height: 1.15;
     max-width: 100%;
@@ -563,7 +563,7 @@ h3 {
    ============================================================ */
 @media (max-width: 360px) {
   .hero__title {
-    font-size: clamp(1.65rem, 9.5vw, 2rem);
+    font-size: clamp(1.3rem, 7.4vw, 1.55rem);
   }
 
   .hero__subtitle {

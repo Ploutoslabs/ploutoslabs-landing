@@ -1,30 +1,25 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { TrendingUp, TrendingDown, RefreshCw } from "lucide-react";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
-import { fetchQuotes, LIVE_RATES_ENABLED } from "../../lib/cryptoRates";
+import { fetchQuotes, refreshQuotes } from "../../lib/cryptoRates";
 import "./Crypto.css";
 
-const COIN_META: Record<
-  string,
-  { name: string; color: string; abbr: string; cmcId: number }
-> = {
-  BTC: { name: "Bitcoin", color: "#F7931A", abbr: "₿", cmcId: 1 },
-  ETH: { name: "Ethereum", color: "#627EEA", abbr: "Ξ", cmcId: 1027 },
-  USDT: { name: "Tether", color: "#26A17B", abbr: "₮", cmcId: 825 },
-  BNB: { name: "BNB", color: "#F3BA2F", abbr: "B", cmcId: 1839 },
-  SOL: { name: "Solana", color: "#9945FF", abbr: "◎", cmcId: 5426 },
-  USDC: { name: "USD Coin", color: "#2775CA", abbr: "$", cmcId: 3408 },
-  XRP: { name: "XRP", color: "#00AAE4", abbr: "X", cmcId: 52 },
-  ADA: { name: "Cardano", color: "#0033AD", abbr: "₳", cmcId: 2010 },
-  DOGE: { name: "Dogecoin", color: "#C2A633", abbr: "Ð", cmcId: 74 },
-  AVAX: { name: "Avalanche", color: "#E84142", abbr: "A", cmcId: 5805 },
-};
+const COIN_META: Record<string, { name: string; color: string; abbr: string }> =
+  {
+    BTC: { name: "Bitcoin", color: "#F7931A", abbr: "₿" },
+    ETH: { name: "Ethereum", color: "#627EEA", abbr: "Ξ" },
+    USDT: { name: "Tether", color: "#26A17B", abbr: "₮" },
+    BNB: { name: "BNB", color: "#F3BA2F", abbr: "B" },
+    SOL: { name: "Solana", color: "#9945FF", abbr: "◎" },
+    USDC: { name: "USD Coin", color: "#2775CA", abbr: "$" },
+    XRP: { name: "XRP", color: "#00AAE4", abbr: "X" },
+    ADA: { name: "Cardano", color: "#0033AD", abbr: "₳" },
+    DOGE: { name: "Dogecoin", color: "#C2A633", abbr: "Ð" },
+    AVAX: { name: "Avalanche", color: "#E84142", abbr: "A" },
+  };
 
 const COIN_SYMBOLS = Object.keys(COIN_META);
 
-function coinLogoUrl(cmcId: number): string {
-  return `https://s2.coinmarketcap.com/static/img/coins/64x64/${cmcId}.png`;
-}
 
 interface CoinData {
   symbol: string;
@@ -34,109 +29,110 @@ interface CoinData {
   up: boolean;
   color: string;
   abbr: string;
-  cmcId: number;
+  /** Logo URL from CoinGecko; falls back to a coloured initial if it fails. */
+  logo: string;
 }
 
 const FALLBACK_COINS: CoinData[] = [
   {
     symbol: "BTC",
     name: "Bitcoin",
-    price: "$67,421.00",
-    change: "+1.03%",
+    price: "$64,455.00",
+    change: "+0.50%",
     up: true,
     color: "#F7931A",
     abbr: "₿",
-    cmcId: 1,
+    logo: "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
   },
   {
     symbol: "ETH",
     name: "Ethereum",
-    price: "$3,144.00",
-    change: "+0.87%",
+    price: "$1,923.24",
+    change: "+1.30%",
     up: true,
     color: "#627EEA",
     abbr: "Ξ",
-    cmcId: 1027,
+    logo: "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png",
   },
   {
     symbol: "USDT",
     name: "Tether",
-    price: "$1.00",
-    change: "+0.01%",
+    price: "$0.999267",
+    change: "+0.00%",
     up: true,
     color: "#26A17B",
     abbr: "₮",
-    cmcId: 825,
+    logo: "https://coin-images.coingecko.com/coins/images/325/large/Tether.png",
   },
   {
     symbol: "BNB",
     name: "BNB",
-    price: "$587.00",
-    change: "+0.42%",
+    price: "$602.1000",
+    change: "+0.30%",
     up: true,
     color: "#F3BA2F",
     abbr: "B",
-    cmcId: 1839,
+    logo: "https://coin-images.coingecko.com/coins/images/825/large/bnb-icon2_2x.png",
   },
   {
     symbol: "SOL",
     name: "Solana",
-    price: "$180.00",
-    change: "-0.58%",
-    up: false,
+    price: "$77.4900",
+    change: "+1.90%",
+    up: true,
     color: "#9945FF",
     abbr: "◎",
-    cmcId: 5426,
+    logo: "https://coin-images.coingecko.com/coins/images/4128/large/solana.png",
   },
   {
     symbol: "USDC",
     name: "USD Coin",
-    price: "$1.00",
+    price: "$0.999659",
     change: "+0.00%",
     up: true,
     color: "#2775CA",
     abbr: "$",
-    cmcId: 3408,
+    logo: "https://coin-images.coingecko.com/coins/images/6319/large/USDC.png",
   },
   {
     symbol: "XRP",
     name: "XRP",
-    price: "$0.62",
-    change: "+0.18%",
+    price: "$1.0060",
+    change: "+1.00%",
     up: true,
     color: "#00AAE4",
     abbr: "X",
-    cmcId: 52,
+    logo: "https://coin-images.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png",
   },
   {
     symbol: "ADA",
     name: "Cardano",
-    price: "$0.45",
-    change: "-0.13%",
-    up: false,
+    price: "$0.174627",
+    change: "+0.60%",
+    up: true,
     color: "#0033AD",
     abbr: "₳",
-    cmcId: 2010,
+    logo: "https://coin-images.coingecko.com/coins/images/975/large/cardano.png",
   },
   {
     symbol: "DOGE",
     name: "Dogecoin",
-    price: "$0.07",
-    change: "+0.12%",
+    price: "$0.070138",
+    change: "+0.30%",
     up: true,
     color: "#C2A633",
     abbr: "Ð",
-    cmcId: 74,
+    logo: "https://coin-images.coingecko.com/coins/images/5/large/dogecoin.png",
   },
   {
     symbol: "AVAX",
     name: "Avalanche",
-    price: "$22.00",
-    change: "-0.24%",
-    up: false,
+    price: "$6.3300",
+    change: "+0.30%",
+    up: true,
     color: "#E84142",
     abbr: "A",
-    cmcId: 5805,
+    logo: "https://coin-images.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png",
   },
 ];
 
@@ -155,9 +151,9 @@ function formatChange(pct: number): string {
   return `${sign}${pct.toFixed(2)}%`;
 }
 
-/* Calls our own backend — see src/lib/cryptoRates.ts */
-async function fetchLiveRates(): Promise<CoinData[]> {
-  const quotes = await fetchQuotes();
+/* Live prices from CoinGecko — see src/lib/cryptoRates.ts */
+async function fetchLiveRates(force = false): Promise<CoinData[]> {
+  const quotes = force ? await refreshQuotes() : await fetchQuotes();
 
   return COIN_SYMBOLS.map((sym) => {
     const q = quotes[sym];
@@ -166,24 +162,20 @@ async function fetchLiveRates(): Promise<CoinData[]> {
 
     if (!q) return fallback;
 
-    const pct = q.percent_change_24h ?? 0;
-
     return {
       symbol: sym,
       name: meta.name,
       price: formatPrice(q.price),
-      change: formatChange(pct),
-      up: pct >= 0,
+      change: formatChange(q.change24h),
+      up: q.change24h >= 0,
       color: meta.color,
       abbr: meta.abbr,
-      cmcId: meta.cmcId,
+      logo: q.image || fallback.logo,
     };
   });
 }
 
 type FetchStatus = "idle" | "loading" | "success" | "error";
-
-/* 🔁 REST OF YOUR FILE REMAINS EXACTLY THE SAME */
 
 function CoinAvatar({ coin }: { coin: CoinData }) {
   const [imgFailed, setImgFailed] = useState(false);
@@ -192,7 +184,7 @@ function CoinAvatar({ coin }: { coin: CoinData }) {
     return (
       <div className="crypto__coin-avatar crypto__coin-avatar--img">
         <img
-          src={coinLogoUrl(coin.cmcId)}
+          src={coin.logo}
           alt={coin.name}
           width={36}
           height={36}
@@ -222,10 +214,10 @@ export default function Crypto() {
   const [btcRate, setBtcRate] = useState<string>("$67,421.00");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const loadRates = useCallback(async () => {
+  const loadRates = useCallback(async (force = false) => {
     setStatus("loading");
     try {
-      const live = await fetchLiveRates();
+      const live = await fetchLiveRates(force);
       setCoins(live);
       const btc = live.find((c) => c.symbol === "BTC");
       if (btc) setBtcRate(btc.price);
@@ -237,17 +229,16 @@ export default function Crypto() {
   }, []);
 
   // Auto-load immediately when the component mounts.
-  // Skipped entirely when live rates are off — FALLBACK_COINS stands in.
+  // FALLBACK_COINS are shown until the first response lands.
   useEffect(() => {
-    if (!LIVE_RATES_ENABLED) return;
     loadRates();
   }, [loadRates]);
 
   // Start/restart the 10-minute auto-refresh when the section scrolls into view
   useEffect(() => {
-    if (!LIVE_RATES_ENABLED || !isVisible) return;
+    if (!isVisible) return;
     if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(loadRates, REFRESH_INTERVAL_MS);
+    intervalRef.current = setInterval(() => loadRates(true), REFRESH_INTERVAL_MS);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
@@ -262,30 +253,22 @@ export default function Crypto() {
             className={`crypto__panel ${isVisible ? "crypto__panel--visible" : ""}`}>
             <div className="crypto__panel-header">
               <span className="crypto__panel-title">Supported Crypto</span>
-              {LIVE_RATES_ENABLED ? (
-                <button
-                  className={`crypto__panel-live ${status === "loading" ? "crypto__panel-live--spinning" : ""}`}
-                  onClick={loadRates}
-                  disabled={status === "loading"}
-                  title="Refresh rates">
-                  <RefreshCw size={20} />
-                  <span>
-                    {status === "loading"
-                      ? "Updating Rate…"
-                      : status === "error"
-                        ? "Refresh Rate"
-                        : lastUpdated
-                          ? `Updated ${lastUpdated}`
-                          : "Live rates"}
-                  </span>
-                </button>
-              ) : (
-                /* Nothing to refresh while live rates are off — don't offer a
-                   control that can only fail, and don't claim "Live". */
-                <span className="crypto__panel-live crypto__panel-live--static">
-                  Indicative rates
+              <button
+                className={`crypto__panel-live ${status === "loading" ? "crypto__panel-live--spinning" : ""}`}
+                onClick={() => loadRates(true)}
+                disabled={status === "loading"}
+                title="Refresh rates">
+                <RefreshCw size={20} />
+                <span>
+                  {status === "loading"
+                    ? "Updating Rate…"
+                    : status === "error"
+                      ? "Refresh Rate"
+                      : lastUpdated
+                        ? `Updated ${lastUpdated}`
+                        : "Live rates"}
                 </span>
-              )}
+              </button>
             </div>
 
             <div className="crypto__coin-list">

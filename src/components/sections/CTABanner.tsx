@@ -1,18 +1,14 @@
 import {
-  Download,
   Wallet,
   ArrowLeftRight,
   Bell,
-  Eye,
-  RefreshCw,
-  DollarSign,
-  Send,
   ShieldCheck,
   Zap,
   TrendingUp,
 } from "lucide-react";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import { APP_STORE_URL, PLAY_STORE_URL } from "../../lib/appLinks";
+import kaviPayApp from "../../assets/kavipay-app.jpeg";
 import "./CTABanner.css";
 
 const features = [
@@ -47,129 +43,15 @@ function PhoneMockup() {
         <TrendingUp size={22} color="#fff" />
       </div>
 
-      {/* Phone frame */}
+      {/* Phone frame — real KaviPay app screenshot */}
       <div className="cta-phone">
-        {/* Status bar */}
-        <div className="cta-phone__status">
-          <span>11:37</span>
-          <div className="cta-phone__status-icons">
-            <span>▲</span>
-            <span>WiFi</span>
-            <span>●●●</span>
-          </div>
-        </div>
-
-        {/* App header */}
-        <div className="cta-phone__header">
-          <span className="cta-phone__menu">☰</span>
-          <div className="cta-phone__wallet-label">
-            Main Wallet <span style={{ fontSize: "10px" }}>▾</span>
-          </div>
-          <div className="cta-phone__header-icons">
-            <Bell size={16} color="#aaa" />
-            <span style={{ fontSize: "14px", color: "#aaa" }}>☽</span>
-          </div>
-        </div>
-
-        {/* Balance */}
-        <div className="cta-phone__balance-section">
-          <div className="cta-phone__balance-label">
-            Total Balance
-            <Eye size={14} color="#aaa" style={{ marginLeft: 6 }} />
-            <RefreshCw size={14} color="#aaa" style={{ marginLeft: 6 }} />
-          </div>
-          <div className="cta-phone__balance">$0.00</div>
-        </div>
-
-        {/* Action buttons */}
-        <div className="cta-phone__actions">
-          {[
-            { icon: <Send size={16} />, label: "Send" },
-            { icon: <Download size={16} />, label: "Receive" },
-            { icon: <RefreshCw size={16} />, label: "Swap" },
-            { icon: <DollarSign size={16} />, label: "Buy & Sell" },
-          ].map(({ icon, label }) => (
-            <div key={label} className="cta-phone__action-btn">
-              <div className="cta-phone__action-icon">{icon}</div>
-              <span>{label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Tabs */}
-        <div className="cta-phone__tabs">
-          <span className="cta-phone__tab cta-phone__tab--active">Assets</span>
-          <span className="cta-phone__tab">NFTs</span>
-          <span className="cta-phone__tab">Activity</span>
-        </div>
-
-        {/* Asset list */}
-        <div className="cta-phone__assets">
-          {[
-            {
-              name: "Ethereum",
-              ticker: "0 ETH · ETH",
-              price: "$0.00",
-              change: "+1.14%",
-              color: "#627EEA",
-              letter: "E",
-            },
-            {
-              name: "Polygon Ecosyste...",
-              ticker: "0 POL · POLYGON",
-              price: "$0.00",
-              change: "+0.92%",
-              color: "#8247E5",
-              letter: "P",
-            },
-            {
-              name: "Binance Chain Nativ...",
-              ticker: "0 BNB · BSC",
-              price: "$0.00",
-              change: "+1.54%",
-              color: "#F3BA2F",
-              letter: "B",
-            },
-            {
-              name: "Ethereum",
-              ticker: "0 ETH · ETH",
-              price: "$0.00",
-              change: "+1.14%",
-              color: "#627EEA",
-              letter: "E",
-            },
-          ].map((asset, i) => (
-            <div key={i} className="cta-phone__asset-row">
-              <div
-                className="cta-phone__asset-icon"
-                style={{ background: asset.color }}
-              >
-                {asset.letter}
-              </div>
-              <div className="cta-phone__asset-info">
-                <div className="cta-phone__asset-name">{asset.name}</div>
-                <div className="cta-phone__asset-ticker">{asset.ticker}</div>
-              </div>
-              <div className="cta-phone__asset-value">
-                <div className="cta-phone__asset-price">{asset.price}</div>
-                <div className="cta-phone__asset-change">{asset.change}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom nav */}
-        <div className="cta-phone__nav">
-          {["Card", "Utilities", "Wallet", "Mine", "Referrals"].map((item) => (
-            <div
-              key={item}
-              className={`cta-phone__nav-item ${item === "Wallet" ? "cta-phone__nav-item--active" : ""}`}
-            >
-              <div className="cta-phone__nav-dot" />
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
+        <img
+          src={kaviPayApp}
+          alt="The KaviPay app dashboard showing available balance, cards and recent activity"
+          className="cta-phone__screen"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   );

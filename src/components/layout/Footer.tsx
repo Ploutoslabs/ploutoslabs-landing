@@ -9,6 +9,8 @@ import Logo from "../../assets/logo.png";
  *  - `href`     → external URL / mailto
  *  - neither    → not built yet, rendered as a "Soon" pill instead of a dead link
  */
+const KAVIPAY = "https://www.kavipay.io";
+
 type FooterLink = { label: string; to?: string; href?: string };
 
 const footerLinks: Record<string, FooterLink[]> = {
@@ -17,7 +19,6 @@ const footerLinks: Record<string, FooterLink[]> = {
     { label: "Crypto Funding", to: "/kavipay" },
     { label: "Bill Payments", to: "/kavipay" },
     { label: "Naira Wallet", to: "/ecosystem" },
-    { label: "Exchange Rates", to: "/ecosystem" },
   ],
   Company: [
     { label: "About Us", to: "/about" },
@@ -26,9 +27,6 @@ const footerLinks: Record<string, FooterLink[]> = {
       label: "Whitepaper",
       href: "https://ploutoslabs.gitbook.io/ploutos-white-paper",
     },
-    { label: "Careers" },
-    { label: "Press" },
-    { label: "Partners" },
   ],
   Support: [
     { label: "Help Center", to: "/faq" },
@@ -38,14 +36,14 @@ const footerLinks: Record<string, FooterLink[]> = {
       label: "Report Fraud",
       href: "mailto:support@kavipay.io?subject=Fraud%20Report",
     },
-    { label: "Status Page" },
-    { label: "Security" },
+    { label: "Status Page", href: `${KAVIPAY}/status` },
   ],
+  // Legal documents are maintained on kavipay.io — link out rather than
+  // duplicating them here. Verified live: /privacy-policy, /terms, /cookies.
   Legal: [
-    { label: "Privacy Policy" },
-    { label: "Terms of Service" },
-    { label: "Cookie Policy" },
-    { label: "AML Policy" },
+    { label: "Privacy Policy", href: `${KAVIPAY}/privacy-policy` },
+    { label: "Terms of Service", href: `${KAVIPAY}/terms` },
+    { label: "Cookie Policy", href: `${KAVIPAY}/cookies` },
   ],
 };
 

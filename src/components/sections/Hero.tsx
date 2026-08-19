@@ -1,7 +1,7 @@
 import { ArrowRight, Star, Shield, Zap } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import TokenCoin from "../../assets/Token.png";
-import { fetchQuotes, LIVE_RATES_ENABLED } from "../../lib/cryptoRates";
+import { fetchQuotes, refreshQuotes } from "../../lib/cryptoRates";
 import "./Hero.css";
 import { Link } from "react-router-dom";
 
@@ -47,14 +47,14 @@ function formatTickerChange(pct: number): string {
   return `${sign}${pct.toFixed(1)}%`;
 }
 
-async function fetchTickerRates(): Promise<TickerCoin[]> {
-  const quotes = await fetchQuotes();
+async function fetchTickerRates(force = false): Promise<TickerCoin[]> {
+  const quotes = force ? await refreshQuotes() : await fetchQuotes();
 
   return TICKER_SYMBOLS.map((sym) => {
     const q = quotes[sym];
     const fallback = FALLBACK_TICKER.find((c) => c.sym === sym)!;
     if (!q) return fallback;
-    const pct = q.percent_change_24h ?? 0;
+    const pct = q.change24h;
     return {
       sym,
       price: formatTickerPrice(q.price),
@@ -76,9 +76,9 @@ export default function Hero() {
   const [tickerCoins, setTickerCoins] = useState<TickerCoin[]>(FALLBACK_TICKER);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const loadTicker = useCallback(async () => {
+  const loadTicker = useCallback(async (force = false) => {
     try {
-      const live = await fetchTickerRates();
+      const live = await fetchTickerRates(force);
       setTickerCoins(live);
     } catch {
       // silently keep last known values
@@ -86,12 +86,10 @@ export default function Hero() {
   }, []);
 
   // Fetch immediately on mount, then every 10 minutes.
-  // Skipped entirely when live rates are off — the fallback ticker stands in.
+  // FALLBACK_TICKER is shown until the first response lands.
   useEffect(() => {
-    if (!LIVE_RATES_ENABLED) return;
-
     loadTicker();
-    intervalRef.current = setInterval(loadTicker, REFRESH_INTERVAL_MS);
+    intervalRef.current = setInterval(() => loadTicker(true), REFRESH_INTERVAL_MS);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
