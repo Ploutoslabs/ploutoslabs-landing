@@ -1,7 +1,30 @@
 import React, { useState } from "react";
+import {
+  Globe,
+  Zap,
+  RefreshCw,
+  Banknote,
+  Wifi,
+  Tv,
+  Phone,
+  ShieldCheck,
+  FileCheck2,
+  Lock,
+  BadgeCheck,
+  CreditCard,
+  Smartphone,
+} from "lucide-react";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import DeviceModal from "../ui/DeviceModal";
 import "./Flagship.css";
+
+/** Independently audited standards KaviPay holds. */
+const certifications = [
+  { icon: ShieldCheck, label: "PCI DSS Compliant" },
+  { icon: FileCheck2, label: "SOC 2 Certified" },
+  { icon: Lock, label: "GDPR Compliant" },
+  { icon: BadgeCheck, label: "ISO 27001" },
+];
 
 const physicalFeatures = [
   "ATM cash withdrawals",
@@ -18,30 +41,30 @@ const virtualFeatures = [
 ];
 
 const billTags = [
-  { emoji: "⚡", label: "Electricity" },
-  { emoji: "📶", label: "Data" },
-  { emoji: "📺", label: "TV" },
-  { emoji: "📞", label: "Airtime" },
+  { icon: Zap, label: "Electricity" },
+  { icon: Wifi, label: "Data" },
+  { icon: Tv, label: "TV" },
+  { icon: Phone, label: "Airtime" },
 ];
 
 const leftFeatures = [
   {
-    emoji: "🌍",
+    icon: Globe,
     title: "Global Acceptance",
     desc: "Use anywhere Visa or Mastercard is accepted — online stores, restaurants, ATMs worldwide.",
   },
   {
-    emoji: "⚡",
+    icon: Zap,
     title: "Instant Virtual Card Activation",
     desc: "Your virtual card is ready in minutes. Physical card shipped directly to you.",
   },
   {
-    emoji: "🔄",
+    icon: RefreshCw,
     title: "Real-Time Crypto Conversion",
     desc: "$PLTL and other tokens are converted to fiat automatically at the point of purchase.",
   },
   {
-    emoji: "₦",
+    icon: Banknote,
     title: "Fund with Naira or Crypto",
     desc: "Maximum flexibility — top up your card using Nigerian Naira or supported cryptocurrencies.",
   },
@@ -58,7 +81,7 @@ const howItWorksSteps = [
     number: "02",
     title: "Choose Your Card",
     desc: "Select a virtual card for instant use, or order a physical card to be delivered to your address.",
-    color: "cyan",
+    color: "alt",
   },
   {
     number: "03",
@@ -70,7 +93,7 @@ const howItWorksSteps = [
     number: "04",
     title: "Spend Freely",
     desc: "Use your card online, in stores, at ATMs, or for bill payments — anywhere major cards are accepted.",
-    color: "cyan",
+    color: "alt",
   },
 ];
 
@@ -172,12 +195,14 @@ export default function Flagship() {
             <div
               className={`flagship__features ${featVisible ? "flagship__features--visible" : ""}`}
               ref={featRef as React.RefObject<HTMLDivElement>}>
-              {leftFeatures.map((f, i) => (
+              {leftFeatures.map(({ icon: Icon, ...f }, i) => (
                 <div
                   key={i}
                   className="flagship__feat-tile"
                   style={{ "--delay": `${i * 100}ms` } as React.CSSProperties}>
-                  <div className="flagship__feat-icon">{f.emoji}</div>
+                  <div className="flagship__feat-icon">
+                    <Icon size={20} />
+                  </div>
                   <div className="flagship__feat-body">
                     <div className="flagship__feat-title">{f.title}</div>
                     <p className="flagship__feat-desc">{f.desc}</p>
@@ -213,7 +238,7 @@ export default function Flagship() {
               {/* Physical Card */}
               <div className="flagship__card-panel flagship__card-panel--physical">
                 <div className="flagship__card-icon-wrap flagship__card-icon-wrap--gold">
-                  <span className="flagship__card-icon">💳</span>
+                  <CreditCard size={19} className="flagship__card-icon" />
                 </div>
                 <h4 className="flagship__card-title flagship__card-title--gold">
                   Physical Card
@@ -236,10 +261,10 @@ export default function Flagship() {
 
               {/* Virtual Card */}
               <div className="flagship__card-panel flagship__card-panel--virtual">
-                <div className="flagship__card-icon-wrap flagship__card-icon-wrap--blue">
-                  <span className="flagship__card-icon">📱</span>
+                <div className="flagship__card-icon-wrap flagship__card-icon-wrap--bright">
+                  <Smartphone size={19} className="flagship__card-icon" />
                 </div>
-                <h4 className="flagship__card-title flagship__card-title--blue">
+                <h4 className="flagship__card-title flagship__card-title--bright">
                   Virtual Card
                 </h4>
                 <p className="flagship__card-sub">
@@ -267,10 +292,28 @@ export default function Flagship() {
                 payable with crypto or Naira.
               </p>
               <div className="flagship__bill-tags">
-                {billTags.map((b, i) => (
+                {billTags.map(({ icon: Icon, label }, i) => (
                   <span key={i} className="flagship__bill-tag">
-                    {b.emoji} {b.label}
+                    <Icon size={15} />
+                    {label}
                   </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Independently audited standards — the strongest trust signal on
+                this page, so it sits with the card details rather than in a
+                footnote. */}
+            <div className="flagship__certs">
+              <div className="flagship__certs-title">
+                Held to independently audited standards
+              </div>
+              <div className="flagship__certs-grid">
+                {certifications.map(({ icon: Icon, label }) => (
+                  <div key={label} className="flagship__cert">
+                    <Icon size={16} className="flagship__cert-icon" />
+                    <span>{label}</span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -283,7 +326,7 @@ export default function Flagship() {
         <div
           className={`flagship__how ${howVisible ? "flagship__how--visible" : ""}`}
           ref={howRef as React.RefObject<HTMLDivElement>}>
-          <div className="flagship__section-eyebrow flagship__section-eyebrow--cyan">
+          <div className="flagship__section-eyebrow flagship__section-eyebrow--alt">
             <span className="flagship__section-line" />
             HOW IT WORKS
           </div>
@@ -325,7 +368,10 @@ export default function Flagship() {
                 Where You Can Use{" "}
                 <span className="flagship__where-title-accent">KaviPay</span>
               </h3>
-              <div className="flagship__where-badge">🌍 Globally Accepted</div>
+              <div className="flagship__where-badge">
+                <Globe size={15} />
+                Globally Accepted
+              </div>
             </div>
 
             <div className="flagship__where-regions">

@@ -24,7 +24,7 @@ Flagship — KaviPay section
 .flagship__glow--1 {
     width: 600px;
     height: 600px;
-    background: #00bfff;
+    background: var(--gold);
     opacity: 0.05;
     top: -160px;
     left: -120px;
@@ -33,7 +33,7 @@ Flagship — KaviPay section
 .flagship__glow--2 {
     width: 420px;
     height: 420px;
-    background: #d4a017;
+    background: var(--gold-light);
     opacity: 0.04;
     top: 60px;
     right: -80px;
@@ -42,7 +42,7 @@ Flagship — KaviPay section
 .flagship__glow--3 {
     width: 300px;
     height: 300px;
-    background: #3b82f6;
+    background: var(--gold-light);
     opacity: 0.05;
     bottom: 0;
     left: 40%;
@@ -74,9 +74,9 @@ Flagship — KaviPay section
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #00bfff;
-    border: 1px solid rgba(0, 191, 255, 0.35);
-    background: rgba(0, 191, 255, 0.07);
+    color: var(--gold);
+    border: 1px solid rgba(243, 207, 18, 0.35);
+    background: rgba(243, 207, 18, 0.07);
     padding: 6px 14px;
     border-radius: 6px;
     margin-bottom: 28px;
@@ -93,7 +93,7 @@ Flagship — KaviPay section
 .flagship__logo-icon {
     width: 44px;
     height: 44px;
-    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -101,7 +101,8 @@ Flagship — KaviPay section
     font-family: var(--font-display);
     font-size: 1.2rem;
     font-weight: 900;
-    color: #fff;
+    /* dark on gold — white washed out against the new gradient */
+    color: #16130a;
     letter-spacing: -0.02em;
 }
 
@@ -114,7 +115,7 @@ Flagship — KaviPay section
 }
 
 .flagship__logo-accent {
-    color: #00bfff;
+    color: var(--gold);
 }
 
 /* Hero headline */
@@ -129,7 +130,7 @@ Flagship — KaviPay section
 }
 
 .flagship__headline-accent {
-    color: #00bfff;
+    color: var(--gold);
 }
 
 /* Description */
@@ -171,15 +172,15 @@ Flagship — KaviPay section
 }
 
 .flagship__feat-tile:hover {
-    border-color: rgba(0, 191, 255, 0.25);
+    border-color: rgba(243, 207, 18, 0.25);
 }
 
 .flagship__feat-icon {
-    font-size: 1.25rem;
+    color: var(--gold);
     width: 36px;
     height: 36px;
-    background: rgba(0, 191, 255, 0.08);
-    border: 1px solid rgba(0, 191, 255, 0.15);
+    background: rgba(243, 207, 18, 0.08);
+    border: 1px solid rgba(243, 207, 18, 0.15);
     border-radius: 9px;
     display: flex;
     align-items: center;
@@ -227,16 +228,16 @@ Flagship — KaviPay section
 }
 
 .flagship__btn--primary {
-    background: #00bfff;
+    background: var(--gold);
     color: #000;
     border: none;
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.25);
+    box-shadow: 0 0 20px rgba(243, 207, 18, 0.25);
 }
 
 .flagship__btn--primary:hover {
-    background: #33ccff;
+    background: var(--gold-soft);
     transform: translateY(-2px);
-    box-shadow: 0 0 32px rgba(0, 191, 255, 0.4);
+    box-shadow: 0 0 32px rgba(243, 207, 18, 0.4);
 }
 
 .flagship__btn--ghost {
@@ -246,8 +247,8 @@ Flagship — KaviPay section
 }
 
 .flagship__btn--ghost:hover {
-    border-color: rgba(0, 191, 255, 0.4);
-    color: #00bfff;
+    border-color: rgba(243, 207, 18, 0.4);
+    color: var(--gold);
     transform: translateY(-2px);
 }
 
@@ -290,11 +291,11 @@ Flagship — KaviPay section
 }
 
 .flagship__card-panel--physical:hover {
-    border-color: rgba(212, 160, 23, 0.3);
+    border-color: rgba(232, 195, 106, 0.3);
 }
 
 .flagship__card-panel--virtual:hover {
-    border-color: rgba(0, 191, 255, 0.3);
+    border-color: rgba(243, 207, 18, 0.3);
 }
 
 /* Icon wrap */
@@ -311,13 +312,13 @@ Flagship — KaviPay section
 }
 
 .flagship__card-icon-wrap--gold {
-    background: rgba(212, 160, 23, 0.12);
-    border: 1px solid rgba(212, 160, 23, 0.2);
+    background: rgba(232, 195, 106, 0.12);
+    border: 1px solid rgba(232, 195, 106, 0.2);
 }
 
-.flagship__card-icon-wrap--blue {
-    background: rgba(0, 191, 255, 0.1);
-    border: 1px solid rgba(0, 191, 255, 0.2);
+.flagship__card-icon-wrap--bright {
+    background: rgba(243, 207, 18, 0.1);
+    border: 1px solid rgba(243, 207, 18, 0.2);
 }
 
 .flagship__card-title {
@@ -329,11 +330,11 @@ Flagship — KaviPay section
 }
 
 .flagship__card-title--gold {
-    color: #d4a017;
+    color: var(--gold-light);
 }
 
-.flagship__card-title--blue {
-    color: #00bfff;
+.flagship__card-title--bright {
+    color: var(--gold);
 }
 
 .flagship__card-sub {
@@ -367,11 +368,11 @@ Flagship — KaviPay section
 }
 
 .flagship__check--gold {
-    color: #d4a017;
+    color: var(--gold-light);
 }
 
 .flagship__check--blue {
-    color: #00bfff;
+    color: var(--gold);
 }
 
 /* Bills panel */
@@ -384,7 +385,7 @@ Flagship — KaviPay section
 }
 
 .flagship__bills-panel:hover {
-    border-color: rgba(0, 191, 255, 0.2);
+    border-color: rgba(243, 207, 18, 0.2);
 }
 
 .flagship__bills-title {
@@ -424,8 +425,8 @@ Flagship — KaviPay section
 }
 
 .flagship__bill-tag:hover {
-    border-color: rgba(0, 191, 255, 0.3);
-    color: #00bfff;
+    border-color: rgba(243, 207, 18, 0.3);
+    color: var(--gold);
 }
 
 /* ─────────────────────────────────────────
@@ -442,25 +443,25 @@ Shared section eyebrow style
     margin-bottom: 20px;
 }
 
-.flagship__section-eyebrow--cyan {
-    color: #00bfff;
+.flagship__section-eyebrow--alt {
+    color: var(--gold);
 }
 
 .flagship__section-eyebrow--gold {
-    color: #d4a017;
+    color: var(--gold-light);
 }
 
 .flagship__section-line {
     display: inline-block;
     width: 28px;
     height: 2px;
-    background: #00bfff;
+    background: var(--gold);
     border-radius: 2px;
     flex-shrink: 0;
 }
 
 .flagship__section-line--gold {
-    background: #d4a017;
+    background: var(--gold-light);
 }
 
 /* ─────────────────────────────────────────
@@ -489,7 +490,7 @@ HOW IT WORKS
 }
 
 .flagship__how-headline-accent {
-    color: #00bfff;
+    color: var(--gold);
 }
 
 /* Steps row */
@@ -508,10 +509,10 @@ HOW IT WORKS
     right: calc(12.5%);
     height: 1px;
     background: linear-gradient(90deg,
-            rgba(212, 160, 23, 0.4) 0%,
-            rgba(0, 191, 255, 0.4) 33%,
-            rgba(212, 160, 23, 0.4) 66%,
-            rgba(0, 191, 255, 0.4) 100%);
+            rgba(232, 195, 106, 0.4) 0%,
+            rgba(243, 207, 18, 0.4) 33%,
+            rgba(232, 195, 106, 0.4) 66%,
+            rgba(243, 207, 18, 0.4) 100%);
     z-index: 0;
 }
 
@@ -551,15 +552,15 @@ HOW IT WORKS
 }
 
 .flagship__step-circle--gold {
-    color: #d4a017;
-    border-color: #d4a017;
-    box-shadow: 0 0 16px rgba(212, 160, 23, 0.2);
+    color: var(--gold-light);
+    border-color: var(--gold-light);
+    box-shadow: 0 0 16px rgba(232, 195, 106, 0.2);
 }
 
-.flagship__step-circle--cyan {
-    color: #00bfff;
-    border-color: #00bfff;
-    box-shadow: 0 0 16px rgba(0, 191, 255, 0.2);
+.flagship__step-circle--alt {
+    color: var(--gold);
+    border-color: var(--gold);
+    box-shadow: 0 0 16px rgba(243, 207, 18, 0.2);
 }
 
 .flagship__step-title {
@@ -619,7 +620,7 @@ WHERE YOU CAN USE KAVIPAY
 }
 
 .flagship__where-title-accent {
-    color: #00bfff;
+    color: var(--gold);
 }
 
 .flagship__where-badge {
@@ -629,8 +630,8 @@ WHERE YOU CAN USE KAVIPAY
     font-size: 0.78rem;
     font-weight: 700;
     color: var(--ploutos-text);
-    background: rgba(0, 191, 255, 0.07);
-    border: 1px solid rgba(0, 191, 255, 0.25);
+    background: rgba(243, 207, 18, 0.07);
+    border: 1px solid rgba(243, 207, 18, 0.25);
     padding: 8px 16px;
     border-radius: 100px;
 }
@@ -672,17 +673,17 @@ WHERE YOU CAN USE KAVIPAY
 }
 
 .flagship__country-tag:hover {
-    border-color: rgba(0, 191, 255, 0.3);
+    border-color: rgba(243, 207, 18, 0.3);
 }
 
 .flagship__country-tag--highlighted {
-    border-color: rgba(212, 160, 23, 0.45);
-    background: rgba(212, 160, 23, 0.07);
+    border-color: rgba(232, 195, 106, 0.45);
+    background: rgba(232, 195, 106, 0.07);
 }
 
 .flagship__where-note {
-    background: rgba(0, 191, 255, 0.04);
-    border: 1px solid rgba(0, 191, 255, 0.15);
+    background: rgba(243, 207, 18, 0.04);
+    border: 1px solid rgba(243, 207, 18, 0.15);
     border-radius: 9px;
     padding: 14px 18px;
     font-size: 0.8rem;
@@ -692,7 +693,7 @@ WHERE YOU CAN USE KAVIPAY
 
 .flagship__where-note-label {
     font-weight: 700;
-    color: #00bfff;
+    color: var(--gold);
 }
 
 /* ── Responsive ── */
@@ -751,4 +752,68 @@ WHERE YOU CAN USE KAVIPAY
     .flagship__where-inner {
         padding: 24px 20px;
     }
+}
+/* ── Bill tag icons ── */
+.flagship__bill-tag svg {
+    color: var(--gold);
+    flex-shrink: 0;
+}
+
+/* ── Certifications ──
+   The one set of claims on this page a visitor can independently verify, so
+   it sits with the card detail rather than being buried in the footer. */
+.flagship__certs {
+    margin-top: 18px;
+    padding: 22px 24px;
+    background: rgba(243, 207, 18, 0.04);
+    border: 1px solid rgba(243, 207, 18, 0.16);
+    border-radius: var(--radius-lg);
+}
+
+.flagship__certs-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+}
+
+.flagship__certs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 18px;
+}
+
+.flagship__cert {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ploutos-text);
+}
+
+.flagship__cert-icon {
+    color: var(--gold-light);
+    flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+    .flagship__certs-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.flagship__card-icon {
+    color: var(--gold);
+}
+
+.flagship__card-icon-wrap--gold .flagship__card-icon {
+    color: var(--gold-light);
+}
+
+.flagship__where-badge svg {
+    color: var(--gold);
+    flex-shrink: 0;
 }
