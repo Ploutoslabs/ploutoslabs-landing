@@ -178,15 +178,217 @@ h3 {
   overflow: visible;
 }
 
-/* ── Card image ── */
-.kavi-card-img {
+/* ── KaviPay cards ──
+   Mirrors the in-app card (kavipay apps/mobile .../card/Card.tsx): the
+   standard navy variant in front, the premium AfriGo variant behind. */
+.kavi-card {
   position: absolute;
-  top: 55px;
+  border-radius: 18px;
+  overflow: hidden;
+  padding: 26px;
+  box-sizing: border-box;
+}
+
+.kavi-card--standard {
+  top: 104px;
   left: 0;
-  width: 370px;
-  height: auto;
-  border-radius: 20px;
+  width: 372px;
+  height: 228px;
+  background: linear-gradient(135deg, #1a2647, #0e1530);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+  /* Rotation lives inside the keyframes: a plain `transform` here would be
+     overwritten by the animation's own transform. */
+  animation: kavi-card-float 4s ease-in-out infinite;
+}
+
+.kavi-card--premium {
+  top: 52px;
+  left: 116px;
+  width: 336px;
+  height: 220px;
+  transform: rotate(4.5deg);
+  background: linear-gradient(135deg, #1a1410, #0a0806);
+  border: 1px solid rgba(245, 199, 122, 0.22);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+@keyframes kavi-card-float {
+  0%,
+  100% {
+    transform: rotate(-6deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-6deg) translateY(-12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kavi-card--standard {
+    animation: none;
+    transform: rotate(-6deg);
+  }
+}
+
+.kavi-card__glow {
+  position: absolute;
+  right: -64px;
+  top: -42px;
+  width: 236px;
+  height: 236px;
+  border-radius: 50%;
+  background: rgba(77, 166, 255, 0.12);
+  /* The app draws this as a plain circle; at hero scale it needs softening or
+     the edge reads as a shape rather than a glow. */
+  filter: blur(26px);
+  pointer-events: none;
+}
+
+.kavi-card__pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background: repeating-linear-gradient(
+    45deg,
+    #f5c77a 0,
+    #f5c77a 1px,
+    transparent 1px,
+    transparent 18px
+  );
+  pointer-events: none;
+}
+
+.kavi-card__top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kavi-card__top--end {
+  justify-content: flex-end;
+}
+
+.kavi-card__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kavi-card__logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(77, 166, 255, 0.18);
+}
+
+.kavi-card--premium .kavi-card__logo {
+  background: rgba(245, 199, 122, 0.15);
+}
+
+.kavi-card__logo img {
+  width: 22px;
+  height: 22px;
   display: block;
+}
+
+.kavi-card__name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: #ffffff;
+}
+
+.kavi-card--premium .kavi-card__name {
+  color: #f5e9ce;
+}
+
+.kavi-card__network {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.kavi-card--premium .kavi-card__network {
+  color: rgba(245, 199, 122, 0.7);
+}
+
+.kavi-card__chip-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.kavi-card__chip {
+  position: relative;
+  width: 44px;
+  height: 34px;
+  border-radius: 6px;
+  background: #d4a95e;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
+    linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
+    linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
+    linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18));
+  background-repeat: no-repeat;
+  background-size:
+    calc(100% - 8px) 1px,
+    calc(100% - 8px) 1px,
+    calc(100% - 8px) 1px,
+    1px calc(100% - 8px);
+  background-position:
+    4px 30%,
+    4px 50%,
+    4px 70%,
+    44% 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.kavi-card__contactless {
+  color: rgba(255, 255, 255, 0.55);
+  transform: rotate(90deg);
+}
+
+.kavi-card__bottom {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.kavi-card__balance-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 5px;
+}
+
+.kavi-card__balance {
+  font-size: 1.9rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.kavi-card__last4 {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+  padding-bottom: 3px;
 }
 
 /* ============================================================
@@ -204,17 +406,19 @@ h3 {
   min-width: 220px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
+  /* above both cards */
+  z-index: 3;
 }
 
 .hero__notif--1 {
-  top: 0;
-  right: 0;
+  top: -30px;
+  right: -34px;
   animation: float 5s ease-in-out 0.5s infinite;
 }
 
 .hero__notif--2 {
-  bottom: 20px;
-  left: 0;
+  bottom: 34px;
+  left: -12px;
   animation: float 5s ease-in-out 1.5s infinite;
 }
 
@@ -274,6 +478,7 @@ h3 {
   position: absolute;
   bottom: 0;
   right: 0;
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -398,6 +603,17 @@ h3 {
 
   .hero__card-scene {
     transform: scale(0.85);
+  }
+
+  /* The visual sits above the copy here, so the top notification can no
+     longer bleed upwards past the navbar. */
+  .hero__notif--1 {
+    top: 8px;
+    right: -14px;
+  }
+
+  .hero__notif--2 {
+    left: 0;
   }
 }
 

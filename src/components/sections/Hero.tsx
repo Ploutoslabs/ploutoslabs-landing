@@ -1,6 +1,6 @@
 import { ArrowRight, Star, Shield, Zap } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
-import TokenCoin from "../../assets/Token.png";
+import KaviIcon from "../../assets/kavi-icon.png";
 import { fetchQuotes, refreshQuotes } from "../../lib/cryptoRates";
 import "./Hero.css";
 import { Link } from "react-router-dom";
@@ -158,12 +158,56 @@ export default function Hero() {
         {/* Card Visual */}
         <div className="hero__visual">
           <div className="hero__card-scene">
-            {/* KaviPay card image */}
-            <img
-              src={TokenCoin}
-              alt="Ploutos coin"
-              className="kavi-card-img animate-float"
-            />
+            {/* Premium AfriGo card — a layer behind the standard one, so only
+                its edge and network mark show */}
+            <div className="kavi-card kavi-card--premium" aria-hidden="true">
+              <div className="kavi-card__pattern" />
+              <div className="kavi-card__top kavi-card__top--end">
+                <span className="kavi-card__network">AFRIGO</span>
+              </div>
+            </div>
+
+            {/* Standard card, front */}
+            <div className="kavi-card kavi-card--standard">
+              <div className="kavi-card__glow" />
+              <div className="kavi-card__top">
+                <div className="kavi-card__brand">
+                  <span className="kavi-card__logo">
+                    <img src={KaviIcon} alt="" />
+                  </span>
+                  <span className="kavi-card__name">KaviPay</span>
+                </div>
+                <span className="kavi-card__network">VISA</span>
+              </div>
+
+              <div className="kavi-card__chip-row">
+                <span className="kavi-card__chip" aria-hidden="true" />
+                <svg
+                  className="kavi-card__contactless"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  aria-hidden="true">
+                  <path d="M6 9a9 9 0 0 1 12 0" />
+                  <path d="M8.5 12a5.5 5.5 0 0 1 7 0" />
+                  <path d="M11.5 15a3.5 3.5 0 0 1 1 0" />
+                </svg>
+              </div>
+
+              <div className="kavi-card__bottom">
+                <div>
+                  <div className="kavi-card__balance-label">
+                    Available balance
+                  </div>
+                  <div className="kavi-card__balance">$1,284.06</div>
+                </div>
+                <div className="kavi-card__last4">•• 4821</div>
+              </div>
+            </div>
 
             {/* Floating notification — card top-up */}
             <div className="hero__notif hero__notif--1">
