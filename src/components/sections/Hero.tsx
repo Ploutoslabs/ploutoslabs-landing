@@ -177,7 +177,7 @@ export default function Hero() {
                   </span>
                   <span className="kavi-card__name">KaviPay</span>
                 </div>
-                <span className="kavi-card__network">VISA</span>
+                <span className="kavi-card__network">MASTER</span>
               </div>
 
               <div className="kavi-card__chip-row">

@@ -1,421 +1,294 @@
-/* ───────────────────────────────────────────────────────────
-   KEYFRAME ANIMATIONS
-─────────────────────────────────────────────────────────── */
-@keyframes bubbleFloat {
-  0% {
-    transform: translateY(0px) scale(1);
-  }
-
-  50% {
-    transform: translateY(-10px) scale(1.06);
-  }
-
-  100% {
-    transform: translateY(0px) scale(1);
-  }
-}
-
-@keyframes bubbleFloatAlt {
-  0% {
-    transform: translateY(0px) scale(1);
-  }
-
-  50% {
-    transform: translateY(10px) scale(1.06);
-  }
-
-  100% {
-    transform: translateY(0px) scale(1);
-  }
-}
-
-@keyframes bubblePulse {
-  0% {
-    box-shadow: 0 4px 24px rgba(26, 108, 255, 0.4), 0 0 0 0 rgba(26, 108, 255, 0.3);
-  }
-
-  50% {
-    box-shadow: 0 8px 32px rgba(26, 108, 255, 0.6), 0 0 0 10px rgba(26, 108, 255, 0);
-  }
-
-  100% {
-    box-shadow: 0 4px 24px rgba(26, 108, 255, 0.4), 0 0 0 0 rgba(26, 108, 255, 0);
-  }
-}
-
-@keyframes bubblePulseAlt {
-  0% {
-    box-shadow: 0 4px 24px rgba(14, 165, 233, 0.4), 0 0 0 0 rgba(14, 165, 233, 0.3);
-  }
-
-  50% {
-    box-shadow: 0 8px 32px rgba(14, 165, 233, 0.6), 0 0 0 10px rgba(14, 165, 233, 0);
-  }
-
-  100% {
-    box-shadow: 0 4px 24px rgba(14, 165, 233, 0.4), 0 0 0 0 rgba(14, 165, 233, 0);
-  }
-}
-
-/* ───────────────────────────────────────────────────────────
-   CTA BANNER
-─────────────────────────────────────────────────────────── */
+/* ============================================================
+   CTA banner — full-bleed closing band
+   A band rather than a card: it is the last thing on the page, so it
+   closes the page instead of stacking one more panel on it.
+   ============================================================ */
 .cta-banner {
-  padding: 80px 0 100px;
-}
-
-.cta-banner__card {
   position: relative;
-  background: linear-gradient(135deg, #071a0f 0%, #0a1f14 50%, #051208 100%);
-  border: 1px solid rgba(0, 209, 108, 0.2);
-  border-radius: var(--radius-xl);
-  padding: 80px 40px 60px;
-  text-align: center;
+  padding: 84px 0 72px;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.cta-banner__card--visible {
-  opacity: 1;
-  transform: translateY(0);
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(
+      90deg,
+      transparent,
+      var(--gold-border),
+      transparent
+    )
+    1;
 }
 
 .cta-banner__glow {
   position: absolute;
-  top: -100px;
+  bottom: -280px;
   left: 50%;
   transform: translateX(-50%);
-  width: 500px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(0, 209, 108, 0.12) 0%, transparent 70%);
+  width: 840px;
+  height: 620px;
+  background: radial-gradient(
+    ellipse,
+    rgba(243, 207, 18, 0.13) 0%,
+    transparent 66%
+  );
   pointer-events: none;
 }
 
-.cta-banner__grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 209, 108, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 209, 108, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 70%);
-  pointer-events: none;
-}
-
-.cta-banner__content {
+.cta-banner__inner {
   position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 
-.cta-banner__text-block {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+.cta-banner__inner--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cta-banner__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
 
 .cta-banner__title {
+  margin-top: 18px;
+  max-width: 780px;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-size: clamp(2rem, 4.2vw, 3.6rem);
+  line-height: 1.06;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  color: var(--kavi-text);
-  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.cta-banner__title-accent {
+  color: var(--gold);
 }
 
 .cta-banner__sub {
-  font-size: 1rem;
-  color: var(--kavi-muted);
-  max-width: 480px;
-  line-height: 1.7;
-  margin: 0 auto 48px;
+  margin-top: 18px;
+  max-width: 520px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-muted);
 }
 
-/* ───────────────────────────────────────────────────────────
-   SPLIT LAYOUT
-─────────────────────────────────────────────────────────── */
-.cta-banner__split {
+/* ── Store buttons ── */
+.cta-store-buttons {
   display: flex;
-  align-items: flex-start;
-  gap: 48px;
-  width: 100%;
-  max-width: 940px;
-  margin: 0 auto 44px;
-  text-align: left;
-}
-
-/* ───────────────────────────────────────────────────────────
-   FEATURE CARDS
-─────────────────────────────────────────────────────────── */
-.cta-banner__features {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   gap: 14px;
-}
-
-.cta-feature-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 14px;
-  padding: 18px 20px;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.cta-feature-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(0, 209, 108, 0.2);
-}
-
-.cta-feature-card__icon {
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1a6cff 0%, #0ea5e9 100%);
-  display: flex;
-  align-items: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
-.cta-feature-card__body {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.cta-feature-card__title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--kavi-text);
-  margin: 0;
-}
-
-.cta-feature-card__desc {
-  font-size: 0.85rem;
-  color: var(--kavi-muted);
-  line-height: 1.55;
-  margin: 0;
-}
-
-/* ───────────────────────────────────────────────────────────
-   STORE DOWNLOAD BUTTONS
-─────────────────────────────────────────────────────────── */
-.cta-store-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-/* Row layout: App Store + Google Play side by side */
-.cta-store-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
 .cta-store-btn {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  margin: 10px 0;
-  padding: 10px 0;
-  border-radius: 50px;
-  overflow: visible;
-  text-decoration: none;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  cursor: pointer;
-}
-
-.cta-store-btn:hover {
-  transform: translateY(-2px);
-}
-
-/* Apple Store — dark */
-.cta-store-btn--apple {
-  background: #111318;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.cta-store-btn--apple:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-}
-
-/* Google Play — green gradient */
-.cta-store-btn--google {
-  background: linear-gradient(135deg, #1a9e3f 0%, #22c55e 100%);
-  border: none;
-}
-
-.cta-store-btn--google:hover {
-  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35);
-}
-
-.cta-store-btn__inner {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  color: #fff;
+  gap: 11px;
+  border-radius: 14px;
+  padding: 13px 26px;
+  text-decoration: none;
+  transition: var(--transition);
 }
 
-.cta-store-btn--apple__text {
+.cta-store-btn__text {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  text-align: left;
 }
 
 .cta-store-btn__sub {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  padding-right: 6px !important;
+  font-size: 0.63rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .cta-store-btn__name {
-  font-size: 17px;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1.2;
+  font-size: 0.97rem;
+  font-weight: 700;
 }
 
-/* ───────────────────────────────────────────────────────────
-   PHONE MOCKUP
-─────────────────────────────────────────────────────────── */
-.cta-phone-wrap {
-  position: relative;
-  flex-shrink: 0;
-  width: 250px;
-  margin: 0 36px;
+.cta-store-btn--primary {
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  color: #16130a;
+  box-shadow: 0 12px 40px rgba(243, 207, 18, 0.22);
 }
 
-/* ── Floating bubbles ── */
-.cta-bubble {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+.cta-store-btn--primary .cta-store-btn__sub {
+  opacity: 0.7;
+}
+
+.cta-store-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 48px rgba(243, 207, 18, 0.3);
+}
+
+.cta-store-btn--ghost {
+  border: 1px solid rgba(232, 195, 106, 0.45);
+  color: var(--text-primary);
+}
+
+.cta-store-btn--ghost .cta-store-btn__sub {
+  color: var(--text-muted);
+}
+
+.cta-store-btn--ghost svg {
+  color: var(--gold-light);
+}
+
+.cta-store-btn--ghost:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ── Trust row ── */
+.cta-trust {
   display: flex;
   align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+  flex-wrap: wrap;
   justify-content: center;
-  z-index: 2;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-/* Shield — left-center, floats UP */
-.cta-bubble--shield {
-  background: linear-gradient(135deg, #1a6cff, #0ea5e9);
-  top: 28%;
-  left: -52px;
-  animation:
-    bubbleFloat 3.2s ease-in-out infinite,
-    bubblePulse 3.2s ease-in-out infinite;
+.cta-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
 }
 
-/* Zap — right-center, floats DOWN (alt) */
-.cta-bubble--zap {
-  background: linear-gradient(135deg, #1a6cff, #0ea5e9);
-  top: 46%;
-  right: -52px;
-  animation:
-    bubbleFloatAlt 2.8s ease-in-out infinite 0.6s,
-    bubblePulseAlt 2.8s ease-in-out infinite 0.6s;
+.cta-trust__divider {
+  width: 1px;
+  height: 14px;
+  margin-right: 17px;
+  background: var(--border-default);
 }
 
-/* Chart — left-bottom, floats UP with offset delay */
-.cta-bubble--chart {
-  background: linear-gradient(135deg, #1a6cff, #0ea5e9);
-  bottom: 20%;
-  left: -46px;
-  animation:
-    bubbleFloat 3.6s ease-in-out infinite 1.2s,
-    bubblePulse 3.6s ease-in-out infinite 1.2s;
+.cta-trust__icon {
+  color: var(--gold-light);
+  flex-shrink: 0;
 }
 
-/* ── Phone frame ── */
+/* ── Phone fan ──
+   The lead phone carries the real screen; the two flanking it are dimmed and
+   rotated so they read as depth rather than as three competing screenshots. */
+.cta-phones {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 44px;
+}
+
 .cta-phone {
-  position: relative;
-  z-index: 1;
-  width: 230px;
-  background: #111318;
   border-radius: 30px;
+  background: #111318;
   border: 2px solid #2a2e38;
   overflow: hidden;
-  box-shadow:
-    0 28px 64px rgba(0, 0, 0, 0.65),
-    0 0 0 1px rgba(255, 255, 255, 0.06);
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  flex-shrink: 0;
 }
 
-/* Real KaviPay app screenshot filling the phone frame.
-   The image already contains its own status bar and bottom nav, so it fills
-   the bezel edge-to-edge; the frame's overflow:hidden clips it to the radius. */
 .cta-phone__screen {
-  display: block;
   width: 100%;
   height: auto;
+  display: block;
 }
 
-/* ───────────────────────────────────────────────────────────
-   CTA ACTIONS
-─────────────────────────────────────────────────────────── */
-.cta-banner__actions {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
+.cta-phone--lead {
+  width: 216px;
+  box-shadow:
+    0 40px 90px rgba(0, 0, 0, 0.65),
+    0 0 70px rgba(243, 207, 18, 0.1);
 }
 
-/* ───────────────────────────────────────────────────────────
-   RESPONSIVE
-─────────────────────────────────────────────────────────── */
-@media (max-width: 760px) {
-  .cta-banner__split {
-    flex-direction: column;
-    align-items: center;
+.cta-phone--side {
+  width: 164px;
+  border-radius: 26px;
+  border-color: #23262f;
+  opacity: 0.5;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.cta-phone--side:first-child {
+  transform: translateY(24px) rotate(-5deg);
+}
+
+.cta-phone--side:last-child {
+  transform: translateY(24px) rotate(5deg);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 900px) {
+  .cta-banner {
+    padding-top: 72px;
   }
 
-  .cta-banner__features {
-    width: 100%;
+  .cta-phones {
+    gap: 18px;
+    margin-top: 44px;
   }
 
-  .cta-phone-wrap {
-    margin: 16px auto 0;
+  .cta-phone--lead {
+    width: 208px;
   }
 
-  .cta-store-buttons {
-    grid-template-columns: 1fr 1fr;
+  .cta-phone--side {
+    width: 154px;
   }
 }
 
-@media (max-width: 580px) {
-  .cta-banner__card {
-    padding: 56px 24px 48px;
+@media (max-width: 640px) {
+  .cta-banner {
+    padding-top: 60px;
   }
 
-  .cta-banner__actions {
-    flex-direction: column;
-    align-items: center;
+  .cta-trust {
+    gap: 14px;
+    font-size: 0.8rem;
   }
 
-  .cta-banner__actions .btn {
-    width: 100%;
-    max-width: 280px;
+  .cta-trust__divider {
+    display: none;
   }
 
-  .cta-store-buttons {
-    grid-template-columns: 1fr;
+  /* One phone reads better than three thumbnails at this width. */
+  .cta-phone--side {
+    display: none;
+  }
+
+  .cta-phones {
+    margin-top: 38px;
+  }
+
+  .cta-phone--lead {
+    width: 216px;
+  }
+
+  .cta-store-btn {
+    padding: 12px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-banner__inner {
+    transition: none;
+  }
+
+  .cta-store-btn:hover {
+    transform: none;
   }
 }
