@@ -173,9 +173,87 @@ h3 {
 
 .hero__card-scene {
   position: relative;
-  width: 400px;
+  width: 512px;
   height: 460px;
   overflow: visible;
+}
+
+/* ── $PLTL coin ──
+   Sits behind and above the card: the token is the company's own asset, the
+   card is the product that ships. */
+.hero__coin {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 224px;
+  height: 224px;
+  z-index: 1;
+}
+
+.hero__coin img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.hero__coin-glow {
+  position: absolute;
+  top: -34px;
+  left: -34px;
+  right: -34px;
+  bottom: -34px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(243, 207, 18, 0.18) 0%,
+    rgba(243, 207, 18, 0) 62%
+  );
+  pointer-events: none;
+}
+
+/* ── Status labels ── */
+.hero__status {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  padding: 7px 14px;
+  background: rgba(7, 8, 15, 0.85);
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+}
+
+.hero__status--token {
+  top: -14px;
+  right: 6px;
+  color: var(--gold);
+  border: 1px solid rgba(243, 207, 18, 0.3);
+}
+
+.hero__status--card {
+  bottom: 16px;
+  left: 8px;
+  color: var(--kavi-green, #00d16c);
+  border: 1px solid rgba(0, 209, 108, 0.3);
+}
+
+.hero__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.hero__status-dot--live {
+  animation: pulse-green 2s ease-in-out infinite;
 }
 
 /* ── KaviPay cards ──
@@ -190,10 +268,10 @@ h3 {
 }
 
 .kavi-card--standard {
-  top: 104px;
+  bottom: 38px;
   left: 0;
-  width: 372px;
-  height: 228px;
+  width: 338px;
+  height: 208px;
   background: linear-gradient(135deg, #1a2647, #0e1530);
   box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
   display: flex;
@@ -206,10 +284,10 @@ h3 {
 }
 
 .kavi-card--premium {
-  top: 52px;
-  left: 116px;
-  width: 336px;
-  height: 220px;
+  bottom: 80px;
+  left: 56px;
+  width: 288px;
+  height: 188px;
   transform: rotate(4.5deg);
   background: linear-gradient(135deg, #1a1410, #0a0806);
   border: 1px solid rgba(245, 199, 122, 0.22);
@@ -392,114 +470,6 @@ h3 {
 }
 
 /* ============================================================
-   Floating notifications
-   ============================================================ */
-.hero__notif {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--kavi-card);
-  border: 1px solid var(--kavi-card-border);
-  border-radius: 14px;
-  padding: 12px 16px;
-  min-width: 220px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  /* above both cards */
-  z-index: 3;
-}
-
-.hero__notif--1 {
-  top: -30px;
-  right: -34px;
-  animation: float 5s ease-in-out 0.5s infinite;
-}
-
-.hero__notif--2 {
-  bottom: 34px;
-  left: -12px;
-  animation: float 5s ease-in-out 1.5s infinite;
-}
-
-.hero__notif-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: var(--kavi-green-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  color: var(--kavi-green);
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.hero__notif-icon--blue {
-  background: rgba(59, 130, 246, 0.12);
-}
-
-.hero__notif-title {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--kavi-text);
-}
-
-.hero__notif-sub {
-  font-size: 0.72rem;
-  color: var(--kavi-muted);
-  margin-top: 2px;
-}
-
-.hero__notif-badge {
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 6px;
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-.hero__notif-badge--green {
-  background: var(--kavi-green-dim);
-  color: var(--kavi-green);
-}
-
-.hero__notif-badge--red {
-  background: rgba(239, 68, 68, 0.12);
-  color: #f87171;
-}
-
-/* ============================================================
-   Stats pill
-   ============================================================ */
-.hero__stat-pill {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0, 209, 108, 0.08);
-  border: 1px solid var(--kavi-green-glow);
-  border-radius: 100px;
-  padding: 8px 14px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--kavi-green);
-}
-
-.hero__stat-pill-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--kavi-green);
-  border-radius: 50%;
-  animation: pulse-green 2s ease-in-out infinite;
-}
-
-/* ============================================================
    Crypto ticker
    ============================================================ */
 .hero__ticker {
@@ -574,6 +544,18 @@ h3 {
    Responsive — 900px
    ============================================================ */
 @media (max-width: 900px) {
+  /* The visual sits above the copy here and its container clips overflow, so
+     the token label has to sit inside the scene rather than above it. */
+  .hero__status--token {
+    top: 10px;
+    right: 12px;
+  }
+
+  .hero__status--card {
+    bottom: 22px;
+    left: 12px;
+  }
+
   .hero__inner {
     grid-template-columns: 1fr;
     text-align: center;
@@ -605,17 +587,7 @@ h3 {
     transform: scale(0.85);
   }
 
-  /* The visual sits above the copy here, so the top notification can no
-     longer bleed upwards past the navbar. */
-  .hero__notif--1 {
-    top: 8px;
-    right: -14px;
   }
-
-  .hero__notif--2 {
-    left: 0;
-  }
-}
 
 /* ============================================================
    Responsive — 480px
@@ -715,38 +687,6 @@ h3 {
     transform-origin: center top;
     margin-bottom: -190px;
     /* reclaim the dead layout space from scaling */
-  }
-
-  /* Notifications */
-  .hero__notif {
-    padding: 9px 12px;
-    gap: 8px;
-    min-width: 180px;
-  }
-
-  .hero__notif-icon {
-    width: 30px;
-    height: 30px;
-    font-size: 0.9rem;
-  }
-
-  .hero__notif-title {
-    font-size: 0.7rem;
-  }
-
-  .hero__notif-sub {
-    font-size: 0.64rem;
-  }
-
-  .hero__notif-badge {
-    font-size: 0.7rem;
-    padding: 3px 6px;
-  }
-
-  /* Stat pill */
-  .hero__stat-pill {
-    font-size: 0.7rem;
-    padding: 6px 10px;
   }
 
   /* Ticker */

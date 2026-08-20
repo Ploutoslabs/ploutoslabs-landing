@@ -1,6 +1,7 @@
 import { ArrowRight, Star, Shield, Zap } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import KaviIcon from "../../assets/kavi-icon.png";
+import TokenCoin from "../../assets/Token.png";
 import { fetchQuotes, refreshQuotes } from "../../lib/cryptoRates";
 import "./Hero.css";
 import { Link } from "react-router-dom";
@@ -128,12 +129,14 @@ export default function Hero() {
           </p>
 
           <div className="hero__actions">
-            <Link to="/token" className="btn btn--primary btn--lg hero__cta">
-              Buy $PLTL Token
+            {/* The card is what ships today, so it takes the primary action;
+                $PLTL is secondary until it can actually be bought. */}
+            <Link to="/kavipay" className="btn btn--primary btn--lg hero__cta">
+              Get a KaviPay Card
               <ArrowRight size={18} />
             </Link>
-            <Link to="/kavipay" className="btn btn--ghost btn--lg">
-              Explore Kavipay
+            <Link to="/token" className="btn btn--ghost btn--lg">
+              Explore $PLTL
             </Link>
           </div>
 
@@ -155,9 +158,15 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Card Visual */}
+        {/* Product visual — the $PLTL token and the KaviPay card, the two
+            things the subtitle names */}
         <div className="hero__visual">
           <div className="hero__card-scene">
+            <div className="hero__coin">
+              <div className="hero__coin-glow" />
+              <img src={TokenCoin} alt="The $PLTL token" />
+            </div>
+
             {/* Premium AfriGo card — a layer behind the standard one, so only
                 its edge and network mark show */}
             <div className="kavi-card kavi-card--premium" aria-hidden="true">
@@ -209,40 +218,15 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Floating notification — card top-up */}
-            <div className="hero__notif hero__notif--1">
-              <div className="hero__notif-icon">✅</div>
-              <div>
-                <div className="hero__notif-title">
-                  $PLTL Transaction Confirmed
-                </div>
-                <div className="hero__notif-sub">
-                  Approved •••• 4821 · just now
-                </div>
-              </div>
-              <div className="hero__notif-badge hero__notif-badge--green">
-                200 USDT
-              </div>
+            {/* Status labels keep the two products honest: one is buyable
+                today, the other is not yet. */}
+            <div className="hero__status hero__status--card">
+              <span className="hero__status-dot hero__status-dot--live" />
+              Live today
             </div>
-
-            {/* Floating notification — ATM withdrawal */}
-            <div className="hero__notif hero__notif--2">
-              <div className="hero__notif-icon hero__notif-icon--blue">✅</div>
-              <div>
-                <div className="hero__notif-title">
-                  $PLTL Withdrawal Approved
-                </div>
-                <div className="hero__notif-sub">Approved · •••• 4821</div>
-              </div>
-              <div className="hero__notif-badge hero__notif-badge--red">
-                -$200
-              </div>
-            </div>
-
-            {/* Stats pill */}
-            <div className="hero__stat-pill">
-              <div className="hero__stat-pill-dot" />
-              <span>$PLTL — launching soon</span>
+            <div className="hero__status hero__status--token">
+              <span className="hero__status-dot" />
+              Launching soon
             </div>
           </div>
         </div>
