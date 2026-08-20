@@ -62,8 +62,8 @@ h3 {
 
 .hero__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  gap: 48px;
   align-items: center;
   flex: 1;
   padding-top: 60px;
@@ -138,7 +138,7 @@ h3 {
 .hero__trust {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 13px;
   flex-wrap: wrap;
 }
 
@@ -146,8 +146,9 @@ h3 {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--kavi-muted);
+  white-space: nowrap;
 }
 
 .hero__trust-icon {
@@ -173,8 +174,8 @@ h3 {
 
 .hero__card-scene {
   position: relative;
-  width: 512px;
-  height: 460px;
+  width: 574px;
+  height: 470px;
   overflow: visible;
 }
 
@@ -183,10 +184,10 @@ h3 {
    card is the product that ships. */
 .hero__coin {
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 0;
-  width: 224px;
-  height: 224px;
+  width: 260px;
+  height: 260px;
   z-index: 1;
 }
 
@@ -200,10 +201,10 @@ h3 {
 
 .hero__coin-glow {
   position: absolute;
-  top: -34px;
-  left: -34px;
-  right: -34px;
-  bottom: -34px;
+  top: -24px;
+  left: -24px;
+  right: -24px;
+  bottom: -24px;
   border-radius: 50%;
   background: radial-gradient(
     circle,
@@ -239,8 +240,8 @@ h3 {
 }
 
 .hero__status--card {
-  bottom: 16px;
-  left: 8px;
+  bottom: 8px;
+  right: 0;
   color: var(--kavi-green, #00d16c);
   border: 1px solid rgba(0, 209, 108, 0.3);
 }
@@ -263,15 +264,15 @@ h3 {
   position: absolute;
   border-radius: 18px;
   overflow: hidden;
-  padding: 26px;
+  padding: 30px;
   box-sizing: border-box;
 }
 
 .kavi-card--standard {
-  bottom: 38px;
+  bottom: 48px;
   left: 0;
-  width: 338px;
-  height: 208px;
+  width: 432px;
+  height: 272px;
   background: linear-gradient(135deg, #1a2647, #0e1530);
   box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
   display: flex;
@@ -298,17 +299,17 @@ h3 {
 @keyframes kavi-card-float {
   0%,
   100% {
-    transform: rotate(-6deg) translateY(0);
+    transform: rotate(-3deg) translateY(0);
   }
   50% {
-    transform: rotate(-6deg) translateY(-12px);
+    transform: rotate(-3deg) translateY(-10px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .kavi-card--standard {
     animation: none;
-    transform: rotate(-6deg);
+    transform: rotate(-3deg);
   }
 }
 
@@ -439,7 +440,7 @@ h3 {
 .kavi-card__bottom {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -453,7 +454,7 @@ h3 {
 }
 
 .kavi-card__balance {
-  font-size: 1.9rem;
+  font-size: 2.3rem;
   line-height: 1;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -543,17 +544,17 @@ h3 {
 /* ============================================================
    Responsive — 900px
    ============================================================ */
-@media (max-width: 900px) {
-  /* The visual sits above the copy here and its container clips overflow, so
-     the token label has to sit inside the scene rather than above it. */
+@media (max-width: 1200px) {
+  /* The visual's container clips overflow at this width, so both labels sit
+     inside the scene rather than bleeding past its edges. */
   .hero__status--token {
     top: 10px;
-    right: 12px;
+    right: 8px;
   }
 
   .hero__status--card {
-    bottom: 22px;
-    left: 12px;
+    bottom: 14px;
+    right: 8px;
   }
 
   .hero__inner {
@@ -579,8 +580,10 @@ h3 {
     margin: 0 auto;
   }
 
+  /* Copy leads on narrow screens; the product shot follows it. */
   .hero__visual {
-    order: -1;
+    order: 1;
+    margin-top: 8px;
   }
 
   .hero__card-scene {

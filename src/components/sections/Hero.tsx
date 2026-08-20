@@ -167,16 +167,6 @@ export default function Hero() {
               <img src={TokenCoin} alt="The $PLTL token" />
             </div>
 
-            {/* Premium AfriGo card — a layer behind the standard one, so only
-                its edge and network mark show */}
-            <div className="kavi-card kavi-card--premium" aria-hidden="true">
-              <div className="kavi-card__pattern" />
-              <div className="kavi-card__top kavi-card__top--end">
-                <span className="kavi-card__network">AFRIGO</span>
-              </div>
-            </div>
-
-            {/* Standard card, front */}
             <div className="kavi-card kavi-card--standard">
               <div className="kavi-card__glow" />
               <div className="kavi-card__top">
@@ -186,25 +176,7 @@ export default function Hero() {
                   </span>
                   <span className="kavi-card__name">KaviPay</span>
                 </div>
-                <span className="kavi-card__network">MASTER</span>
-              </div>
-
-              <div className="kavi-card__chip-row">
-                <span className="kavi-card__chip" aria-hidden="true" />
-                <svg
-                  className="kavi-card__contactless"
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  aria-hidden="true">
-                  <path d="M6 9a9 9 0 0 1 12 0" />
-                  <path d="M8.5 12a5.5 5.5 0 0 1 7 0" />
-                  <path d="M11.5 15a3.5 3.5 0 0 1 1 0" />
-                </svg>
+                <span className="kavi-card__network">MASTERCARD</span>
               </div>
 
               <div className="kavi-card__bottom">
