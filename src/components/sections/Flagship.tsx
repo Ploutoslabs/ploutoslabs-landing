@@ -172,12 +172,9 @@ export default function Flagship() {
 
             {/* Hero headline */}
             <h2 className="flagship__headline">
-              Spend
+              Spend Anywhere.
               <br />
-              Anywhere.
-              <br />
-              Fund with
-              <br />
+              Fund with{" "}
               <span className="flagship__headline-accent">Crypto</span>
               <br />
               or Naira.

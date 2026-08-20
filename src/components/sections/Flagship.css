@@ -121,10 +121,12 @@ Flagship — KaviPay section
 /* Hero headline */
 .flagship__headline {
     font-family: var(--font-display);
-    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    /* sized so "Fund with Crypto" — the longest line — stays on one line in
+       the half-width column */
+    font-size: clamp(2.1rem, 4.2vw, 3.75rem);
     font-weight: 900;
-    letter-spacing: -0.04em;
-    line-height: 1.0;
+    letter-spacing: -0.035em;
+    line-height: 1.06;
     color: var(--ploutos-text);
     margin-bottom: 24px;
 }
@@ -733,7 +735,7 @@ WHERE YOU CAN USE KAVIPAY
     }
 
     .flagship__headline {
-        font-size: 2.6rem;
+        font-size: 2.1rem;
     }
 
     .flagship__ctas {
