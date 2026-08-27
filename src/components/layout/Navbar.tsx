@@ -131,9 +131,9 @@ export default function Navbar() {
             <Link to="/token" className="navbar__link">
               $PLTL Token
             </Link>
-            <Link to="/faq" className="navbar__link">
+            {/* <Link to="/faq" className="navbar__link">
               FAQ
-            </Link>
+            </Link> */}
 
             {/* Resources dropdown */}
             <div ref={resourcesRef} style={{ position: "relative" }}>
@@ -201,9 +201,9 @@ export default function Navbar() {
 
           {/* Desktop actions */}
           <div className="navbar__actions">
-            <Link to="/token" className="navbar__btn navbar__btn--outline">
+            {/* <Link to="/token" className="navbar__btn navbar__btn--outline">
               Buy $PLTL Token
-            </Link>
+            </Link> */}
             <button
               type="button"
               onClick={() => setDeviceModalOpen(true)}
