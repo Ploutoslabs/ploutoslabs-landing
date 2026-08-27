@@ -10,8 +10,10 @@ import Crypto from "./components/sections/Crypto";
 import FAQ from "./components/sections/FAQ";
 import CTABanner from "./components/sections/CTABanner";
 
+import { lazy, Suspense } from "react";
+
 //  Import React Router
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 // Import Pages for src/pages
 import About from "./pages/About";
@@ -20,6 +22,11 @@ import Token from "./pages/TokenPage";
 import FAQPage from "./pages/FAQPage";
 import OurEcosystem from "./pages/Ecosystem";
 import NotFound from "./pages/NotFound";
+
+// The wallet dashboard pulls in ethers, so it is code-split away from the marketing pages.
+const DashboardLayout = lazy(() => import("./components/layout/DashboardLayout"));
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const ClaimAirdrop = lazy(() => import("./pages/dashboard/Claim"));
 
 import { usePageMeta } from "./hooks/usePageMeta";
 
@@ -41,25 +48,44 @@ function Home() {
   );
 }
 
+function Shell() {
+  // The token dashboard ships its own header, like the original standalone app.
+  const isDashboard = useLocation().pathname.startsWith("/dashboard");
+
+  return (
+    <>
+      <ScrollToTop />
+      {!isDashboard && <Navbar />}
+
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/kavipay" element={<KaviPay />} />
+          <Route path="/token" element={<Token />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/ecosystem" element={<OurEcosystem />} />
+
+          {/* $PLTL presale + allocation claiming (wallet-connected) */}
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="claim" element={<ClaimAirdrop />} />
+          </Route>
+
+          {/* Anything else lands on the coming-soon page, never a blank shell */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+
+      {!isDashboard && <Footer />}
+    </>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/kavipay" element={<KaviPay />} />
-        <Route path="/token" element={<Token />} />
-        <Route path="/faq" element={<FAQPage />} />
-        <Route path="/ecosystem" element={<OurEcosystem />} />
-
-        {/* Anything else lands on the coming-soon page, never a blank shell */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-
-      <Footer />
+      <Shell />
     </BrowserRouter>
   );
 }
