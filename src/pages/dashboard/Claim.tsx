@@ -20,7 +20,8 @@ export default function ClaimAirdrop() {
           What's <span className="dash__title-accent">unlocked</span>
         </h1>
         <p className="dash__lead">
-          Batches marked <strong>Unlocked</strong> can be claimed now. Locked ones show exactly when they open.
+          Each batch releases 1% every 30 days; missed months accumulate. Rows marked <strong>unlocked</strong> show
+          exactly how much a claim pays today.
         </p>
       </div>
 

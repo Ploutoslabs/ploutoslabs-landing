@@ -1,5 +1,5 @@
 import { useBlockchain } from "../../hooks/useBlockchain";
-import { isClaimable, useNow } from "./vesting";
+import { claimableAmount, useNow } from "./vesting";
 import { toPltl } from "./format";
 
 const fmt = (n: number) => n.toLocaleString("en-US", { maximumFractionDigits: 2 });
@@ -16,13 +16,13 @@ export default function Summary() {
   for (const a of allocations) {
     total += toPltl(a.totalAmount);
     claimed += toPltl(a.claimedAmount);
-    if (isClaimable(a, now)) claimable += toPltl(a.totalAmount - a.claimedAmount);
+    claimable += toPltl(claimableAmount(a, now));
   }
 
   const stats = [
     { label: "Total allocated", value: total, unit: "PLTL" },
     { label: "Claimed so far", value: claimed, unit: "PLTL" },
-    { label: "Unlocked now", value: claimable, unit: "PLTL", accent: claimable > 0 },
+    { label: "Claimable now", value: claimable, unit: "PLTL", accent: claimable > 0 },
   ];
 
   return (

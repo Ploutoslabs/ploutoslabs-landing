@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Lock, Unlock } from "lucide-react";
 import { useBlockchain } from "../../hooks/useBlockchain";
 import { countdown, formatPltl, revertReason, toPltl, txUrl } from "./format";
-import { isClaimable, useNow } from "./vesting";
+import { claimableAmount, periodsUnlocked, useNow } from "./vesting";
 
 type Status = { kind: "pending" | "done" | "error"; index: number; message: string; hash?: string } | null;
 
@@ -117,7 +117,9 @@ export default function AllocationLedger() {
         const claimed = toPltl(a.claimedAmount);
         const pct = total > 0 ? Math.min(100, (claimed / total) * 100) : 0;
         const fullyClaimed = total > 0 && claimed >= total;
-        const claimable = isClaimable(a, now);
+        const claimableRaw = claimableAmount(a, now);
+        const claimable = claimableRaw > 0n;
+        const periods = periodsUnlocked(a, now);
         const left = countdown(Number(a.nextClaimTime) * 1000, now);
         const rowStatus = status?.index === a.index ? status : null;
 
@@ -150,8 +152,8 @@ export default function AllocationLedger() {
               {fullyClaimed ? (
                 <span className="dash__chip dash__chip--done">Fully claimed</span>
               ) : claimable ? (
-                <span className="dash__chip dash__chip--now">
-                  <Unlock size={13} /> Unlocked
+                <span className="dash__chip dash__chip--now" title={`${periods} of 100 monthly releases available`}>
+                  <Unlock size={13} /> {periods}% unlocked
                 </span>
               ) : (
                 <span className="dash__chip">
@@ -167,7 +169,7 @@ export default function AllocationLedger() {
                   className="dash__claim"
                   disabled={rowStatus?.kind === "pending"}
                   onClick={() => claimAllocation(a.index)}>
-                  {rowStatus?.kind === "pending" ? "Claiming…" : "Claim"}
+                  {rowStatus?.kind === "pending" ? "Claiming…" : `Claim ${formatPltl(claimableRaw)}`}
                 </button>
               )}
             </div>

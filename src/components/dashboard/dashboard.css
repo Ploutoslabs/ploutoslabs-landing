@@ -390,7 +390,7 @@
 .dash__ledger-head,
 .dash__row {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) 132px 96px;
+  grid-template-columns: 150px minmax(0, 1fr) 140px auto;
   gap: 16px;
   align-items: center;
 }
@@ -523,6 +523,7 @@
 }
 
 .dash__claim {
+  white-space: nowrap;
   padding: 9px 18px;
   border-radius: 100px;
   font-family: var(--font-display);
