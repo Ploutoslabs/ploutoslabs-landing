@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Lock, Unlock } from "lucide-react";
 import { useBlockchain } from "../../hooks/useBlockchain";
-import { countdown, formatPltl, revertReason, toPltl, txUrl } from "./format";
+import { countdown, formatPltl, revertReason, txUrl } from "./format";
 import { claimableAmount, periodsUnlocked, useNow } from "./vesting";
+import { BASE_TX_OVERRIDES } from "../../web3/chain";
 
 type Status = { kind: "pending" | "done" | "error"; index: number; message: string; hash?: string } | null;
 
@@ -15,11 +16,15 @@ export default function AllocationLedger() {
     wrongChain,
     allocations,
     allocationsLoading,
+    allocationsError,
     reloadAllocations,
     connectWallet,
     switchToBase,
+    assertOnBase,
   } = useBlockchain();
-  const [status, setStatus] = useState<Status>(null);
+  // Keyed by allocation index so claims on different rows don't overwrite each other's status.
+  const [statuses, setStatuses] = useState<Record<number, Status>>({});
+  const setStatus = (st: NonNullable<Status>) => setStatuses((prev) => ({ ...prev, [st.index]: st }));
   const now = useNow();
 
   const claimAllocation = async (index: number) => {
@@ -27,8 +32,11 @@ export default function AllocationLedger() {
     const claim = contractWriter.getFunction("claimAllocation");
     setStatus({ kind: "pending", index, message: "Checking the claim…" });
     try {
-      // Simulate first: a revert here costs nothing and never reaches the wallet prompt.
-      await claim.staticCall(index);
+      // The chain is re-read from the wallet right now — a React flag can be stale — and the
+      // transaction itself carries chainId so the wallet rejects any mismatch. Then simulate:
+      // a revert here costs nothing and never reaches the wallet prompt.
+      await assertOnBase();
+      await claim.staticCall(index, BASE_TX_OVERRIDES);
     } catch (error) {
       console.error("[dashboard] claim preflight reverted", error);
       setStatus({ kind: "error", index, message: `This batch can't be claimed right now: ${revertReason(error)}` });
@@ -36,7 +44,7 @@ export default function AllocationLedger() {
     }
     try {
       setStatus({ kind: "pending", index, message: "Confirm the claim in your wallet…" });
-      const tx = await claim(index);
+      const tx = await claim(index, BASE_TX_OVERRIDES);
       setStatus({ kind: "pending", index, message: "Claim submitted — waiting for Base to confirm…", hash: tx.hash });
       await tx.wait();
       setStatus({ kind: "done", index, message: "Claimed. Your PLTL is in your wallet.", hash: tx.hash });
@@ -82,6 +90,18 @@ export default function AllocationLedger() {
     );
   }
 
+  if (allocationsError) {
+    return (
+      <div className="dash__empty">
+        <h3 className="dash__empty-title">Couldn't load your allocations</h3>
+        <p className="dash__empty-text">{allocationsError}</p>
+        <button type="button" className="btn" onClick={() => void reloadAllocations()} disabled={allocationsLoading}>
+          {allocationsLoading ? "Loading…" : "Try again"}
+        </button>
+      </div>
+    );
+  }
+
   if (allocationsLoading && allocations.length === 0) {
     return (
       <div className="dash__ledger" aria-busy="true">
@@ -113,15 +133,14 @@ export default function AllocationLedger() {
       </div>
 
       {allocations.map((a, i) => {
-        const total = toPltl(a.totalAmount);
-        const claimed = toPltl(a.claimedAmount);
-        const pct = total > 0 ? Math.min(100, (claimed / total) * 100) : 0;
-        const fullyClaimed = total > 0 && claimed >= total;
+        // Percentages in bigint so amounts beyond 2^53 raw units stay exact.
+        const pct = a.totalAmount > 0n ? Number((a.claimedAmount * 10_000n) / a.totalAmount) / 100 : 0;
+        const fullyClaimed = a.totalAmount > 0n && a.claimedAmount >= a.totalAmount;
         const claimableRaw = claimableAmount(a, now);
         const claimable = claimableRaw > 0n;
-        const periods = periodsUnlocked(a, now);
+        const periods = Math.min(100, periodsUnlocked(a, now));
         const left = countdown(Number(a.nextClaimTime) * 1000, now);
-        const rowStatus = status?.index === a.index ? status : null;
+        const rowStatus = statuses[a.index] ?? null;
 
         return (
           <div

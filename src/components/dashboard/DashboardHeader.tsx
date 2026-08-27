@@ -16,6 +16,7 @@ export default function DashboardHeader() {
     wallets,
     selectedWallet,
     connectWallet,
+    switchAccount,
     cancelConnect,
     disconnectWallet,
     switchToBase,
@@ -111,7 +112,7 @@ export default function DashboardHeader() {
                     className="dash__menu-item"
                     onClick={() => {
                       setOpen(false);
-                      void connectWallet(selectedWallet?.id);
+                      void switchAccount();
                     }}>
                     <Wallet size={15} /> Switch account
                   </button>

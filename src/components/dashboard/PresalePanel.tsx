@@ -1,34 +1,39 @@
 import { useState } from "react";
-import { parseEther } from "ethers";
 import { useBlockchain } from "../../hooks/useBlockchain";
-import { revertReason, txUrl } from "./format";
+import { parsePresaleAmount, revertReason, txUrl } from "./format";
+import { BASE_TX_OVERRIDES } from "../../web3/chain";
 
 type Status = { kind: "pending" | "done" | "error"; message: string; hash?: string } | null;
 
 export default function PresalePanel() {
   const [amount, setAmount] = useState("");
   const [status, setStatus] = useState<Status>(null);
-  const { contractWriter, active, noWallet, wrongChain, presaleActive, reloadAllocations } = useBlockchain();
+  const { contractWriter, active, noWallet, wrongChain, presaleActive, reloadAllocations, assertOnBase } =
+    useBlockchain();
 
   const closed = active && !wrongChain && presaleActive === false;
-  const disabled = !active || wrongChain || closed || status?.kind === "pending";
+  const pending = status?.kind === "pending";
+  const disabled = !active || wrongChain || closed || pending;
 
   const buyPresale = async () => {
     if (!active || !contractWriter) {
       setStatus({ kind: "error", message: "Connect a wallet first." });
       return;
     }
-    const value = Number(amount);
-    if (!amount.trim() || isNaN(value) || value <= 0) {
-      setStatus({ kind: "error", message: "Enter the ETH amount as a number, e.g. 0.05." });
+    const value = parsePresaleAmount(amount);
+    if (value === null) {
+      setStatus({ kind: "error", message: "Enter the ETH amount as a plain decimal, e.g. 0.05." });
       return;
     }
+    const sent = amount.trim();
 
     const buy = contractWriter.getFunction("buyPresale");
-    const overrides = { value: parseEther(amount) };
+    const overrides = { ...BASE_TX_OVERRIDES, value };
     setStatus({ kind: "pending", message: "Checking the purchase…" });
     try {
-      // Simulate first: catches "presale closed" / insufficient ETH before the wallet prompt.
+      // Re-read the chain from the wallet first (see AllocationLedger), then simulate:
+      // catches "presale closed" / insufficient ETH before the wallet prompt.
+      await assertOnBase();
       await buy.staticCall(overrides);
     } catch (error) {
       console.error("[dashboard] presale preflight reverted", error);
@@ -40,7 +45,7 @@ export default function PresalePanel() {
       const tx = await buy(overrides);
       setStatus({ kind: "pending", message: "Purchase submitted — waiting for Base to confirm…", hash: tx.hash });
       await tx.wait();
-      setStatus({ kind: "done", message: `Done. ${amount} ETH sent — your new allocation is below.`, hash: tx.hash });
+      setStatus({ kind: "done", message: `Done. ${sent} ETH sent — your new allocation is below.`, hash: tx.hash });
       setAmount("");
       await reloadAllocations();
     } catch (error) {
@@ -71,14 +76,14 @@ export default function PresalePanel() {
               type="text"
               inputMode="decimal"
               placeholder="0.00"
-              disabled={!active || closed}
+              disabled={!active || closed || pending}
               aria-describedby="presale-status"
             />
             <span className="dash__field-unit">ETH</span>
           </span>
         </label>
         <button type="submit" className="btn dash__presale-btn" disabled={disabled}>
-          {status?.kind === "pending" ? "Confirming…" : closed ? "Presale closed" : "Buy presale"}
+          {pending ? "Confirming…" : closed ? "Presale closed" : "Buy presale"}
         </button>
       </form>
 

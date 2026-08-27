@@ -41,7 +41,11 @@ export default function WalletPicker({ wallets, onPick, onClose }: Props) {
         <div className="dash__picker-list">
           {wallets.map((w) => (
             <button key={w.id} type="button" className="dash__picker-item" onClick={() => onPick(w.id)}>
-              {w.icon ? <img src={w.icon} alt="" /> : <span className="dash__picker-fallback" />}
+              {w.icon?.startsWith("data:image/") ? (
+                <img src={w.icon} alt="" />
+              ) : (
+                <span className="dash__picker-fallback" />
+              )}
               <span>{w.name}</span>
             </button>
           ))}

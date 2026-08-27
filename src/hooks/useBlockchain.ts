@@ -42,15 +42,24 @@ export interface BlockchainState {
   selectedWallet: WalletOption | null;
   allocations: Allocation[];
   allocationsLoading: boolean;
-  /** Whether the contract currently accepts buyPresale(); null until read. */
+  /** Set when the last allocation load failed (RPC error) — distinct from "no allocations". */
+  allocationsError: string | null;
+  /** Contract's presaleActive() flag; null until read (or if the read failed). */
   presaleActive: boolean | null;
-  /** Connect to a specific wallet; with no id, the first (preferred) wallet is used. */
+  /** Connect to a specific wallet; with no id, the first (preferred) wallet is used. Always prompts if needed. */
   connectWallet: (walletId?: string) => Promise<void>;
-  /** Stop waiting on a wallet prompt that isn't responding (the wallet may still answer later). */
+  /** Ask the connected wallet to show its account picker. */
+  switchAccount: () => Promise<void>;
+  /** Stop waiting on a wallet prompt that isn't responding. */
   cancelConnect: () => void;
   disconnectWallet: () => void;
   switchToBase: () => Promise<void>;
   reloadAllocations: () => Promise<void>;
+  /**
+   * Confirms the connected wallet is on Base *right now* (fresh eth_chainId), for use
+   * immediately before simulating or sending a transaction. Throws otherwise.
+   */
+  assertOnBase: () => Promise<void>;
 }
 
 export const BlockchainContext = createContext<BlockchainState | null>(null);

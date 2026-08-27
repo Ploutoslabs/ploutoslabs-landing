@@ -36,7 +36,7 @@ if [[ -z "$TEST_WALLET" ]]; then
 fi
 command -v anvil >/dev/null || { echo "anvil not found — install foundry: https://getfoundry.sh" >&2; exit 1; }
 
-AMOUNT_RAW=$(( AMOUNT_PLTL * 1000000000 ))   # PLTL has 9 decimals
+AMOUNT_RAW=$(cast to-wei "$AMOUNT_PLTL" gwei)   # PLTL has 9 decimals (gwei = 1e9), so "0.5" works too
 
 echo "▶ starting anvil fork of Base ($FORK_URL) on $RPC …"
 anvil --fork-url "$FORK_URL" --port 8545 --silent &

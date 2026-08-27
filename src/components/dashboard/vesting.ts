@@ -26,10 +26,6 @@ export function claimableAmount(a: Allocation, nowMs: number): bigint {
   return released < remaining ? released : remaining;
 }
 
-export function isClaimable(a: Allocation, nowMs: number): boolean {
-  return claimableAmount(a, nowMs) > 0n;
-}
-
 export function useNow(intervalMs = 1000) {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {

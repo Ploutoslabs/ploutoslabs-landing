@@ -50,14 +50,15 @@ function Home() {
 
 function Shell() {
   // The token dashboard ships its own header, like the original standalone app.
-  const isDashboard = useLocation().pathname.startsWith("/dashboard");
+  const { pathname } = useLocation();
+  const isDashboard = pathname === "/dashboard" || pathname.startsWith("/dashboard/");
 
   return (
     <>
       <ScrollToTop />
       {!isDashboard && <Navbar />}
 
-      <Suspense fallback={null}>
+      <Suspense fallback={<div aria-busy="true" style={{ minHeight: "60vh" }} />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

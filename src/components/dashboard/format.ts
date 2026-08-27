@@ -1,12 +1,31 @@
-// PLTL has 9 decimals.
-const TOKEN_DECIMALS = 10 ** 9;
+import { formatUnits, parseEther } from "ethers";
 
+// PLTL has 9 decimals.
+export const PLTL_DECIMALS = 9;
+
+/** Display-only conversion (float). Use bigint for anything that feeds a transaction. */
 export function toPltl(raw: bigint): number {
-  return Number(raw) / TOKEN_DECIMALS;
+  return Number(formatUnits(raw, PLTL_DECIMALS));
 }
 
 export function formatPltl(raw: bigint): string {
   return toPltl(raw).toLocaleString("en-US", { maximumFractionDigits: 2 });
+}
+
+/**
+ * Parse the presale ETH amount typed by the user. Accepts only a plain positive decimal
+ * with at most 18 fractional digits — no exponents, hex, signs, whitespace or separators —
+ * so the value we send is exactly the value the visitor sees.
+ */
+export function parsePresaleAmount(input: string): bigint | null {
+  const text = input.trim();
+  if (!/^(\d+\.?\d*|\.\d+)$/.test(text)) return null;
+  try {
+    const value = parseEther(text);
+    return value > 0n ? value : null;
+  } catch {
+    return null;
+  }
 }
 
 export function shortAddress(address: string): string {

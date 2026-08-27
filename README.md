@@ -77,8 +77,9 @@ export default defineConfig([
 ## $PLTL dashboard (`/dashboard`)
 
 Wallet-connected page for holders: shows PLTL allocations from the contract on Base
-(`0x45254F4c45545341f2a657501881B20439cBAF90`) and claims unlocked batches. Presale purchases
-appear only while the contract's `presaleActive()` is true.
+(`0x45254F4c45545341f2a657501881B20439cBAF90`) and claims unlocked batches. The presale form is
+disabled while the contract's `presaleActive()` is false. Every transaction re-checks the wallet's
+chain and carries `chainId: 8453`, so nothing can be sent anywhere but Base.
 
 **Test it without real money** — rehearse on a local fork of Base:
 
