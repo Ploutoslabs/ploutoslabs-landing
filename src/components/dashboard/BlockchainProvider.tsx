@@ -19,6 +19,12 @@ const SLOW_CONNECT_MS = 10_000;
 const LAST_WALLET_KEY = "pltl.dashboard.wallet";
 /** allocationInfo calls per parallel batch when loading a wallet's allocations. */
 const ALLOCATION_BATCH = 10;
+/**
+ * Upper bound on allocations read per wallet. allocationLen comes from the wallet's RPC, which
+ * we don't control; without a cap a hostile or broken RPC could make the page issue unbounded
+ * eth_calls. Real holders have a handful.
+ */
+const MAX_ALLOCATIONS = 500;
 
 function describeConnectError(error: unknown, walletName: string): string {
   const e = error as { code?: number | string; message?: string; shortMessage?: string } | undefined;
@@ -265,9 +271,12 @@ export default function BlockchainProvider({ children }: { children: ReactNode }
           .then((v: boolean) => Boolean(v))
           .catch(() => null),
       ]);
+      if (!Number.isSafeInteger(count) || count < 0) throw new Error(`allocationLen returned ${String(count)}`);
+      const limit = Math.min(count, MAX_ALLOCATIONS);
+      if (count > MAX_ALLOCATIONS) console.warn(`[dashboard] ${count} allocations reported; showing the first ${MAX_ALLOCATIONS}`);
       const rows: Allocation[] = [];
-      for (let start = 0; start < count; start += ALLOCATION_BATCH) {
-        const indexes = Array.from({ length: Math.min(ALLOCATION_BATCH, count - start) }, (_, k) => start + k);
+      for (let start = 0; start < limit; start += ALLOCATION_BATCH) {
+        const indexes = Array.from({ length: Math.min(ALLOCATION_BATCH, limit - start) }, (_, k) => start + k);
         const infos = await Promise.all(indexes.map((i) => contractReader.getFunction("allocationInfo")(walletAddress, i)));
         if (!current()) return;
         infos.forEach((info, k) => {

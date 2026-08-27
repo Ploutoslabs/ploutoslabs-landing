@@ -999,3 +999,9 @@
   display: block;
   margin-bottom: 2px;
 }
+
+.dash__footer-contract code {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-primary);
+}

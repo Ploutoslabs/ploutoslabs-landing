@@ -1,0 +1,22 @@
+# Security headers served by Netlify for every path.
+# CSP notes:
+#  - script-src 'self': the build emits no inline scripts. Wallet extensions inject via the
+#    extension API, which CSP does not govern, so MetaMask & co. keep working.
+#  - style-src needs 'unsafe-inline' because React/framer-motion set inline style attributes;
+#    Google Fonts serves the stylesheet from fonts.googleapis.com and files from fonts.gstatic.com.
+#  - connect-src: the only page-initiated request is the CoinGecko rates call on the home page;
+#    all chain traffic goes through the wallet extension, not the page.
+#  - img-src: CoinGecko coin logos on the home page; wallet icons are data: URIs (EIP-6963).
+#  - frame-ancestors 'none': the claim page must never be framed (UI redress on a money action).
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://coin-images.coingecko.com; connect-src 'self' https://api.coingecko.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+
+# Hashed build assets are immutable; index.html stays revalidated (Netlify default).
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

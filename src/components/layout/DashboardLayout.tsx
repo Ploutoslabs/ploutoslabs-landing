@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import BlockchainProvider from "../dashboard/BlockchainProvider";
+import { PLTL } from "../../web3/contracts";
+import { shortAddress } from "../dashboard/format";
 import "../dashboard/dashboard.css";
 
 export default function DashboardLayout() {
@@ -16,7 +18,15 @@ export default function DashboardLayout() {
           <Outlet />
         </main>
         <footer className="dash__footer">
-          <span>PLTL · Base network</span>
+          {/* Always visible so holders can check the contract they're signing for against Basescan. */}
+          <a
+            href={`https://basescan.org/address/${PLTL}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={PLTL}
+            className="dash__footer-contract">
+            PLTL contract <code>{shortAddress(PLTL)}</code> · Base
+          </a>
           <a href="https://ploutoslabs.gitbook.io/ploutos-white-paper" target="_blank" rel="noopener noreferrer">
             Whitepaper
           </a>
