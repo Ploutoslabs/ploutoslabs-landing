@@ -1,23 +1,28 @@
 import { Shield, Zap, CheckCircle2 } from "lucide-react";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import { APP_STORE_URL, PLAY_STORE_URL } from "../../lib/appLinks";
-import kaviPayApp from "../../assets/kavipay-app.jpeg";
+import kaviPayCard from "../../assets/kavipay-app2.jpeg";
+import kaviPayDashboard from "../../assets/kavipay-app1.jpeg";
+import kaviPayUtilities from "../../assets/kavipay-app3.jpeg";
 import "./CTABanner.css";
 
-/**
- * The three phones are meant to show three different screens — the card, bill
- * payments and crypto funding. Until those captures exist they all point at the
- * one screenshot we have; swap the side two here and nothing else changes.
- */
+/** Card, dashboard and bill payments — the lead phone sits in the middle. */
 const screens = [
-  { src: kaviPayApp, alt: "", side: true, placeholder: true },
   {
-    src: kaviPayApp,
+    src: kaviPayCard,
+    alt: "The KaviPay card screen showing a virtual card balance and spending analytics",
+    side: true,
+  },
+  {
+    src: kaviPayDashboard,
     alt: "The KaviPay app dashboard showing available balance and cards",
     side: false,
-    placeholder: false,
   },
-  { src: kaviPayApp, alt: "", side: true, placeholder: true },
+  {
+    src: kaviPayUtilities,
+    alt: "The KaviPay utilities screen for paying airtime, data, electricity and TV bills",
+    side: true,
+  },
 ];
 
 const trustPoints = [
@@ -103,8 +108,7 @@ export default function CTABanner() {
           {screens.map((s, i) => (
             <div
               key={i}
-              className={`cta-phone ${s.side ? "cta-phone--side" : "cta-phone--lead"}`}
-              aria-hidden={s.side || undefined}>
+              className={`cta-phone ${s.side ? "cta-phone--side" : "cta-phone--lead"}`}>
               <img
                 src={s.src}
                 alt={s.alt}
