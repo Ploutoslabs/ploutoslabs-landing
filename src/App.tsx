@@ -21,6 +21,7 @@ import KaviPay from "./pages/KaviPay";
 import Token from "./pages/TokenPage";
 import FAQPage from "./pages/FAQPage";
 import OurEcosystem from "./pages/Ecosystem";
+import Rewards from "./pages/Rewards";
 import NotFound from "./pages/NotFound";
 
 // The wallet dashboard pulls in ethers, so it is code-split away from the marketing pages.
@@ -66,6 +67,7 @@ function Shell() {
           <Route path="/token" element={<Token />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/ecosystem" element={<OurEcosystem />} />
+          <Route path="/rewards" element={<Rewards />} />
 
           {/* $PLTL presale + allocation claiming (wallet-connected) */}
           <Route path="/dashboard" element={<DashboardLayout />}>
