@@ -1,0 +1,348 @@
+/* ─────────────────────────────────────────
+Rewards — KaviPay status & Ploutos Rewards
+───────────────────────────────────────── */
+.rewards {
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0 110px;
+}
+
+.rewards__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.rewards__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(160px);
+  background: var(--gold);
+}
+
+.rewards__glow--1 {
+  width: 560px;
+  height: 560px;
+  opacity: 0.06;
+  top: -180px;
+  left: -140px;
+}
+
+.rewards__glow--2 {
+  width: 420px;
+  height: 420px;
+  opacity: 0.04;
+  top: 900px;
+  right: -120px;
+}
+
+/* .container resets margin, so section spacing is padding. */
+.rewards section {
+  position: relative;
+  padding-bottom: 72px;
+}
+
+.rewards section.rewards__tiers {
+  padding-bottom: 80px;
+}
+
+.rewards section.rewards__closing {
+  padding-bottom: 0;
+}
+
+/* ── Hero ── */
+.rewards__hero {
+  text-align: center;
+}
+
+.rewards__eyebrow {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(243, 207, 18, 0.35);
+  background: rgba(243, 207, 18, 0.07);
+  padding: 6px 14px;
+  border-radius: 6px;
+  margin-bottom: 24px;
+}
+
+.rewards__headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 5vw, 3.75rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  color: var(--text-primary);
+  max-width: 760px;
+  margin: 0 auto 22px;
+}
+
+.rewards__accent {
+  color: var(--gold);
+}
+
+.rewards__lede {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 34px;
+}
+
+.rewards__cta {
+  display: inline-block;
+  background: var(--gold);
+  color: #16130a;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.rewards__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px var(--gold-glow);
+}
+
+.rewards__cta:focus-visible {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 3px;
+}
+
+/* ── Pillars ── */
+.rewards__pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.rewards__pillar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.rewards__pillar-icon {
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.rewards__pillar h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.rewards__pillar p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+/* ── Tiers ── */
+.rewards__tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.rewards__tier {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 30px 26px;
+}
+
+.rewards__tier--featured {
+  border-color: rgba(243, 207, 18, 0.45);
+  background: linear-gradient(180deg, rgba(243, 207, 18, 0.07), var(--bg-surface) 55%);
+}
+
+.rewards__badge {
+  position: absolute;
+  top: -11px;
+  left: 26px;
+  background: var(--gold);
+  color: #16130a;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.rewards__tier-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.rewards__tier-price {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.rewards__tier-price span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+.rewards__tier-weight {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gold);
+  margin: 6px 0 22px;
+}
+
+.rewards__perks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rewards__perks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.rewards__perks svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--neon-green);
+}
+
+/* ── Weighting example ── */
+.rewards__example,
+.rewards__faq {
+  max-width: 760px;
+}
+
+.rewards__example h2,
+.rewards__faq h2,
+.rewards__closing h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.rewards__example > p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.rewards__calc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 22px 0 14px;
+}
+
+.rewards__calc div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+}
+
+.rewards__calc span {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.rewards__calc strong {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.rewards__example .rewards__note {
+  font-size: 0.8rem;
+}
+
+/* ── FAQ ── */
+.rewards__faq-item {
+  border-bottom: 1px solid var(--border-default);
+  padding: 16px 0;
+}
+
+.rewards__faq-item summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.rewards__faq-item summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.rewards__faq-item p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+/* ── Closing ── */
+.rewards__closing {
+  text-align: center;
+}
+
+.rewards__closing > p {
+  color: var(--text-muted);
+  margin-bottom: 26px;
+}
+
+.rewards__closing .rewards__disclaimer {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  opacity: 0.75;
+  max-width: 720px;
+  margin: 48px auto 0;
+}
+
+@media (max-width: 900px) {
+  .rewards__pillars,
+  .rewards__tiers {
+    grid-template-columns: 1fr;
+  }
+
+  .rewards__tiers {
+    gap: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rewards {
+    padding: 96px 0 80px;
+  }
+}
