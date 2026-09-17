@@ -147,32 +147,6 @@ export default function Rewards() {
         ))}
       </section>
 
-      <section className="container rewards__example">
-        <h2>How the weighting works</h2>
-        <p>
-          Each holder's share of a distribution is their weighting divided by the total weighting
-          of all holders. Say 1,000 Essential, 500 Plus and 100 Premium holders are counted:
-        </p>
-        <div className="rewards__calc">
-          <div>
-            <span>Total weighting</span>
-            <strong>1,000×1 + 500×2 + 100×5 = 2,500</strong>
-          </div>
-          <div>
-            <span>Each Essential holder</span>
-            <strong>1 / 2,500 = 0.04% of the pool</strong>
-          </div>
-          <div>
-            <span>Each Premium holder</span>
-            <strong>5 / 2,500 = 0.20% of the pool</strong>
-          </div>
-        </div>
-        <p className="rewards__note">
-          Figures are illustrative. Pool size and distribution dates are announced to status
-          holders before each distribution.
-        </p>
-      </section>
-
       <section className="container rewards__faq">
         <h2>Questions</h2>
         {faqs.map((item) => (

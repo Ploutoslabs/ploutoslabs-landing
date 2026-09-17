@@ -231,13 +231,11 @@ Rewards — KaviPay status & Ploutos Rewards
   color: var(--neon-green);
 }
 
-/* ── Weighting example ── */
-.rewards__example,
+/* ── FAQ ── */
 .rewards__faq {
   max-width: 760px;
 }
 
-.rewards__example h2,
 .rewards__faq h2,
 .rewards__closing h2 {
   font-size: clamp(1.5rem, 3vw, 2rem);
@@ -247,47 +245,6 @@ Rewards — KaviPay status & Ploutos Rewards
   margin-bottom: 14px;
 }
 
-.rewards__example > p {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--text-muted);
-}
-
-.rewards__calc {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 22px 0 14px;
-}
-
-.rewards__calc div {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  padding: 14px 18px;
-}
-
-.rewards__calc span {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-}
-
-.rewards__calc strong {
-  font-family: var(--font-mono);
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.rewards__example .rewards__note {
-  font-size: 0.8rem;
-}
-
-/* ── FAQ ── */
 .rewards__faq-item {
   border-bottom: 1px solid var(--border-default);
   padding: 16px 0;
